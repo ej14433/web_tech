@@ -67,6 +67,8 @@ Thumbs.db
 *.komodoproject
 
 package.json
+package-lock.json
+
 
 # ignore log files and databases
 *.log
