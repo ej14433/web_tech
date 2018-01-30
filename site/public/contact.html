@@ -2,8 +2,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
   <head>
-    <meta http-equiv="refresh" content="5" ></meta>
-    <meta name="author" content="Elis Jones and Sonny Peng "></meta>
     <title> SeaMor Contact </title>
     <link rel="stylesheet" href="./css/style.css" />
   </head>
@@ -31,14 +29,14 @@
         var mapProp = {
           center: uluru,
           zoom : 17,
-          mapTypeId: google.maps.MapTypeId.HYBRID
+          mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var marker = new google.maps.Marker({
           position: uluru,
           map: map
         });
         var map = new google.maps.Map(document.getElementById("map"), mapProp);
-      }
+        }
     </script>
     <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDX_ZX2IIn784c1cEECTEBjnkZUi7pB5F0&amp;callback=initMap">
