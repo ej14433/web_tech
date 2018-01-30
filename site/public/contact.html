@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta name="author" content="Elis Jones and Sonny Peng "></meta>
+  <title> SeaMor Wildlife Tours </title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body style="background-image:url('http://allswalls.com/images/dolphins-dolphin-ocea-sea-underwater-q-wallpaper-3.jpg')">
+
+  <header style="background-color: Grey">
+    <div class="container">
+      <nav>
+        <ul>
+          <li class="current"> <a href="index.html"> Home </a></li>
+          <li> <a href="wildlife.html"> Wildlife </a></li>
+          <li> <a href="vessels.html"> Vessels </a></li>
+          <li> <a href="contact.html"> Contact Us </a></li>
+        </ul>
+      </nav>
+      <h1> SeaMor Wildlife Tours </h1>
+    </div>
+
+  </header>
+
+    <h3>My Google Maps Demo</h3>
+    <div id="map" style="width:400px;height:400px;background:yellow"></div>
+    <script>
+      function initMap() {
+        var uluru = {lat: 52.215293, lng: -4.358254};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 8,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+    </script>
+    <script async="1" defer="1" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDX_ZX2IIn784c1cEECTEBjnkZUi7pB5F0&amp;callback=initMa"> </script>
+  </body>
+</html>
