@@ -10,9 +10,23 @@ body {
   overflow:hidden;
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+}
+
 ul{
   margin:0;
   padding:0;
+}
+
+header{
+  background:#a1b8dd;
+  color:#ffffff;
+  padding-top:30px;
+  min-height:70px;
+  border-bottom:#00245b 3px solid;
 }
 
 header nav {
@@ -28,6 +42,7 @@ header li {
 
 header a {
   text-decoration: none;
+  color: #ffffff;
 }
 
 header .highlight, header .current a{
@@ -40,7 +55,7 @@ header a:hover{
 
 /*Showcase*/
 #showcase{
-  min-height:100px;
+  min-height:10px;
   text-align:center;
 }
 
@@ -53,4 +68,12 @@ header a:hover{
 
 #showcase p{
   font-size:20px;
+}
+
+footer{
+  padding:20px;
+  margin-top:20px;
+  color:#ffffff;
+  background-color:#a1b8dd;
+  text-align: center;
 }
