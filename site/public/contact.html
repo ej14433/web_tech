@@ -6,16 +6,16 @@
   <title> SeaMor Wildlife Tours </title>
   <link rel="stylesheet" href="./css/style.css" />
 </head>
-<body style="background-image:url('http://allswalls.com/images/dolphins-dolphin-ocea-sea-underwater-q-wallpaper-3.jpg')">
+<body>
 
-  <header style="background-color: Grey">
+  <header>
     <div class="container">
       <nav>
         <ul>
-          <li class="current"> <a href="index.html"> Home </a></li>
+          <li> <a href="index.html"> Home </a></li>
           <li> <a href="wildlife.html"> Wildlife </a></li>
           <li> <a href="vessels.html"> Vessels </a></li>
-          <li> <a href="contact.html"> Contact Us </a></li>
+          <li class="current"> <a href="contact.html"> Contact Us </a></li>
         </ul>
       </nav>
       <h1> SeaMor Wildlife Tours </h1>
@@ -23,26 +23,20 @@
 
   </header>
 
+  <section id = "showcase">
     <h3>My Google Maps Demo</h3>
     <div id="map" style="width:400px;height:400px;background:yellow"></div>
-    <script>
-      function initMap() {
-        var uluru = {lat: 52.215293, lng: -4.358254};
-        var mapProp = {
-          center: uluru,
-          zoom : 17,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var marker = new google.maps.Marker({
-          position: uluru,
-          map: map
-        });
-        var map = new google.maps.Map(document.getElementById("map"), mapProp);
-        }
+    <script src = "./scripts/map.js">
+
     </script>
     <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDX_ZX2IIn784c1cEECTEBjnkZUi7pB5F0&amp;callback=initMap">
     </script>
+  </section>
+
+  <footer>
+      <p>by Elis Jones, and Sonny Peng. Copyright 2018</p>
+  </footer>
 
   </body>
 </html>
