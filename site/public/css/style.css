@@ -10,6 +10,14 @@ body {
   overflow:hidden;
 }
 
+.imagelink{
+  background-size:cover;
+}
+
+.dolphinlink{
+  background-color:white;
+}
+
 ul{
   margin:0;
   padding:0;
