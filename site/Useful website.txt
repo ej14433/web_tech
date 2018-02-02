@@ -1,2 +1,5 @@
 Basic Fluid Layout tutorial:
 https://www.creativebloq.com/css3/create-fluid-layouts-html5-and-css3-3142768
+
+Basic text on image turorial:
+https://css-tricks.com/design-considerations-text-images/
