@@ -6,3 +6,6 @@ https://css-tricks.com/design-considerations-text-images/
 
 Great vid for responsive mobile and desktop site:
 https://www.youtube.com/watch?v=M3qBpPw77qo&t=113s
+
+Example Website:
+https://aqua.org/
