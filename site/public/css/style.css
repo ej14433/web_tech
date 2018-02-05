@@ -1,8 +1,8 @@
 body {
-  font: 15px/1.5 Arial, Helvetica, sans-serif;
+  font: 18px/1.5 Arial, Helvetica, sans-serif;
   padding: 0;
   margin: 0;
-  background-color: #a1b8dd;
+  background-color: #4f5984;
   background-image:url('../img/dolphins.jpg');
 }
 
@@ -24,8 +24,8 @@ ul{
 }
 
 header{
-  background:#a1b8dd;
-  color:#ffffff;
+  background:#4f5984;
+  color:#f4f4f4;
   padding-top:30px;
   min-height:70px;
   border-bottom:#00245b 3px solid;
@@ -55,27 +55,77 @@ header a:hover{
   color:#cccccc;
 }
 
+#contact {
+  text-align: center;
+}
+
+#map{
+  width:400px;
+  height:400px;
+  background-color:lightblue;
+  margin: auto;
+}
+
 /*Showcase*/
-#showcase{
-  min-height:10px;
-  text-align:center;
+.showcase{
+  min-height:200px;
+  text-align:right;
+  background-color: #f4f4f4;
+  margin: 5% 2%;
+  transition-property: background-color, border-radius, opacity;
+  transition-duration: 1s;
 }
 
-#showcase h1{
-
-  margin-top:100px;
-  font-size:55px;
-  margin-bottom:10px;
+.showcase:hover {
+  border-radius: 20%;
 }
 
-#showcase p{
+.showcase h2{
+  font-size:40px;
+  font-weight: normal;
+}
+
+.showcase p{
   font-size:20px;
+}
+
+.showcase#boat_trip {
+  color: white;
+  background-image: url('../img/islander.jpg');
+  background-size: 100%;
+  background-position: 10%;
+}
+
+.showcase#dolphin_watching {
+  color: white;
+  background-image: url('../img/dolphin1.jpg');
+  background-size: 100%;
+  background-position: 0%;
+}
+
+.button {
+    background-color: #7090cb;
+    border-radius: 8px;
+    color: #f4f4f4;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 0 0 20px 20px;
+    transition-property: opacity;
+    transition-duration: 0.25s;
+}
+
+.button:hover{
+  opacity: 0.5;
 }
 
 footer{
   padding:20px;
   margin-top:20px;
   color:#ffffff;
-  background-color:#a1b8dd;
+  background-color:#4f5984;
   text-align: center;
+  color: #f4f4f4
 }
