@@ -23,12 +23,16 @@ ul{
   padding:0;
 }
 
-header{
-  background:#4f5984;
+header:link{
+  background-color:rgba(0, 0, 0, 0);
   color:#f4f4f4;
   padding-top:30px;
   min-height:70px;
   border-bottom:#00245b 3px solid;
+}
+
+header:hover{
+    background-color:rgba(0, 0, 0, 0.3);
 }
 
 header nav {
