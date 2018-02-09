@@ -9,9 +9,28 @@
   </head>
 
   <body>
+<!--
+    <header class="v-header container">
+      <div class="fullscreen-video-wrap">
+        <video src="./video/Dolphin.mov" autoplay="true" loop="true">
 
-    <header>
-      <div class="container">
+        </video>
+      </div>
+      <div class="header-text">
+        <h1> SeaMor Wildlife Tours </h1>
+        <nav>
+          <ul>
+            <li class="current"> <a href="index.html"> Home </a></li>
+            <li> <a href="wildlife.html"> Wildlife </a></li>
+            <li> <a href="vessels.html"> Vessels </a></li>
+            <li> <a href="contact.html"> Contact Us </a></li>
+          </ul>
+        </nav>
+      </div>
+    </header> -->
+
+    <header class="container">
+      <div>
         <h1> SeaMor Wildlife Tours </h1>
         <nav>
           <ul>
@@ -23,6 +42,16 @@
         </nav>
       </div>
     </header>
+
+    <!-- split the video from the header, so that we gain more control over 2 element
+    if both are in the same section, it would be harder to control individual
+    MAY CHANGE IN THE FUTURE FOR OTHER FEATURE! -->
+    <div class="v-header">
+      <div class="fullscreen-video-wrap">
+        <video src="./video/Dolphin.mov" autoplay="true" loop="true"
+      </video>
+      </div>
+    </div>
 
     <section class="showcase" id = "dolphin_watching">
       <div class = "container">

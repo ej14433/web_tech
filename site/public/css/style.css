@@ -2,8 +2,12 @@ body {
   font: 18px/1.5 Arial, Helvetica, sans-serif;
   padding: 0;
   margin: 0;
-  background-color: #4f5984;
-  background-image:url('../img/dolphins.jpg');
+
+  /* Make the background more outstanding, for debugging purpose
+    Can restore this after
+  */
+  background-color: #555555;
+  /* background-image:url('../img/dolphins.jpg'); */
 }
 
 .container{
@@ -23,25 +27,25 @@ ul{
   padding:0;
 }
 
-header:link{
+header{
   background-color:rgba(0, 0, 0, 0);
   color:#f4f4f4;
   padding-top:30px;
   min-height:70px;
-  border-bottom:#00245b 3px solid;
 }
-
 header:hover{
     background-color:rgba(0, 0, 0, 0.3);
 }
 
+
+
 header nav {
-  float: right;
+  float:right;
+  padding: 0 0 0 50vw;
   margin-top: 10px;
 }
 
 header li {
-  float:left;
   display:inline;
   padding: 0 20px 0 20px;
 }
@@ -123,6 +127,31 @@ header a:hover{
 
 .button:hover{
   opacity: 0.5;
+}
+
+.v-header{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  color:#fff;
+}
+
+.fullscreen-video-wrap{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100vh;
+  overflow:hidden;
+  /* here we make sure the video is actually at background */
+  z-index:-1;
+}
+
+.header-text{
+  z-index:1;
+}
+.header-text:hover{
+  background-color:rgba(0, 0, 0, 1);
 }
 
 footer{
