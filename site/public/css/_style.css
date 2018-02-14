@@ -1,0 +1,182 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font: 18px/1.5 Arial, Helvetica, sans-serif;
+  padding: 0;
+  margin: 0;
+
+  /* Make the background more outstanding, for debugging purpose
+    Can restore this after
+  */
+  background-color: #555555;
+  /* background-image:url('../img/dolphins.jpg'); */
+}
+
+.video_header {
+  height: 50vh;
+  display: flex;
+  align-items: content;
+  color: #ffffff;
+}
+
+.video_wrap {
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 50vh;
+  overflow: hidden;
+}
+
+.video_wrap video{
+  height: 100%;
+}
+
+header{
+  background-color:rgba(0, 0, 0, 0);
+  color:#f4f4f4;
+  padding-top:30px;
+  min-height:70px;
+}
+header:hover{
+    background-color:rgba(0, 0, 0, 0.3);
+}
+
+
+
+header nav {
+  float:right;
+  padding: 0 0 0 50vw;
+  margin-top: 10px;
+}
+
+header li {
+  display:inline;
+  padding-right: 4rem;
+  margin: auto;
+}
+
+header nav ul{
+  display: grid;
+  grid-gap: 20px;
+  padding: 0;
+  grid-template-columns: repeat(3, 1fr)
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+}
+
+ul{
+  margin:0;
+  padding:0;
+}
+
+#contact {
+  text-align: center;
+}
+
+#map{
+  width:400px;
+  height:400px;
+  background-color:lightblue;
+  margin: auto;
+}
+
+/*Showcase*/
+.showcase{
+  min-height:200px;
+  text-align:right;
+  background-color: #f4f4f4;
+  margin: 5% 2%;
+  transition-property: background-color, border-radius, opacity;
+  transition-duration: 1s;
+}
+
+.showcase:hover {
+  border-radius: 20%;
+}
+
+.showcase h2{
+  font-size:40px;
+  font-weight: normal;
+}
+
+.showcase p{
+  font-size:20px;
+}
+
+.showcase#boat_trip {
+  color: white;
+  background-image: url('../img/islander.jpg');
+  background-size: 100%;
+  background-position: 10%;
+}
+
+.showcase#dolphin_watching {
+  color: white;
+  background-image: url('../img/dolphin1.jpg');
+  background-size: 100%;
+  background-position: 0%;
+}
+
+.button {
+    background-color: #7090cb;
+    border-radius: 8px;
+    color: #f4f4f4;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 0 0 20px 20px;
+    transition-property: opacity;
+    transition-duration: 0.25s;
+}
+
+.button:hover{
+  opacity: 0.5;
+}
+
+.v-header{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  color:#fff;
+}
+
+.fullscreen-video-wrap{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100vh;
+  overflow:hidden;
+  /* here we make sure the video is actually at background */
+  z-index:-1;
+}
+
+.header-text{
+  z-index:1;
+}
+.header-text:hover{
+  background-color:rgba(0, 0, 0, 1);
+}
+
+footer{
+  padding:20px;
+  margin-top:20px;
+  color:#ffffff;
+  background-color:#4f5984;
+  text-align: center;
+  color: #f4f4f4
+}
