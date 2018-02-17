@@ -164,7 +164,7 @@ footer{
 @media(max-width: 921px){
 
   body {
-    grid-template-rows: 2fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-template-columns: 1fr;
   }
 
