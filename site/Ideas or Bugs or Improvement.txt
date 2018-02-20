@@ -1,3 +1,3 @@
 /*Please place all suggestion on improvement or bugs or related here*/
 
-1. Distance between video header to showcase section are quite far relatively
+-. Distance between video header to showcase section are quite far relatively - Fixed

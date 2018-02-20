@@ -1,0 +1,12 @@
+:root {
+  --off-white: #F7F5E6;
+  --dark-blue: #333A56;
+  --blue:      #52658F;
+  --white:     #E8E8E8;
+}
+
+body {
+  font-family: sans-serif;
+  color: var(--off-white);
+  background-color: var(--blue);
+}

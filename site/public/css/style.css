@@ -15,17 +15,18 @@
 body {
   display: grid;
   font-family: sans-serif;
+  color: var(--off-white);
   background: var(--off-white);
   padding: 0;
   margin: 0;
   grid-template-columns: repeat(3, minmax(100px, 1fr));
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(auto, 0.5fr));
   grid-gap: 2rem;
   overflow-x: hidden;
 }
 
 header h1 {
-  color: white;
+  color: var(--off-white);
   z-index: 2;
   grid-row: 2;
   grid-column: span 3;
@@ -49,9 +50,14 @@ header {
   grid-template-rows: 4fr 5fr 5fr;
 }
 
+#contact {
+  grid-template-rows: 1fr;
+  height: 16vh;
+}
+
 #not-home {
   height: 20vh;
-  grid-template-rows: 1fr;
+  grid-template-rows: 1fr 1fr;
 }
 
 nav ul {
@@ -65,7 +71,7 @@ nav ul {
 }
 
 #not-home-ul {
-  margin: 5rem auto;
+  margin: auto;
   width: 60vw;
 }
 
@@ -120,9 +126,9 @@ a:hover {
 
 section {
     color: var(--dark-blue);
+    background-color: var(--off-white);
     padding: 1em;
-    margin: 1em;
-    margin-right: 6rem;
+    margin: 1rem;
     text-align: left;
     grid-row: 2 / span 1;
     grid-column: span 1;
@@ -131,15 +137,31 @@ section {
     border-style: solid;*/
 }
 
+section h2 {
+  text-align: center;
+}
+
 
 section img {
   width: 100%;
 }
 
+section a {
+  text-decoration: none;
+  color: var(--dark-blue);
+  border-style: solid;
+  border-width: 2px;
+  border-color: var(--dark-blue);
+  padding: 0.5rem 2rem;
+  width: 5rem;
+  text-align: center;
+  margin: 2rem auto;
+}
+
 .crop {
 
-  min-height: 150px;
-  min-width: 300px;
+/*  min-height: 150px;
+  min-width: 300px;*/
   overflow: hidden;
 
   margin: auto;
@@ -154,7 +176,7 @@ section img {
 }
 footer{
   height: 5rem;
-  background-color: var(--blue);
+  background-color: var(--dark-blue);
   width: 100vw;
   color: var(--off-white);
   padding-left: 2rem;
@@ -164,13 +186,19 @@ footer{
 @media(max-width: 921px){
 
   body {
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-rows: repeat(4, auto);
     grid-template-columns: 1fr;
   }
 
   section {
-      grid-row: span 1;
-      grid-column: span 3;
+    display: grid;
+    grid-row: span 1;
+    grid-column: span 3;
+    margin-right: 8rem;
+  }
+
+  section a {
+    margin: 1rem auto;
   }
 
   nav ul {
@@ -180,13 +208,12 @@ footer{
   }
 
   #home-ul {
-        margin: -2rem -5rem;
+      margin: auto;
   }
 
   #not-home-ul{
-    margin:5rem auto;
+    margin: 5% auto;
   }
-
 
   #not-home {
     height: 20vh;
