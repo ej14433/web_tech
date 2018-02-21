@@ -4,19 +4,20 @@
     <meta name="author" content="Elis Jones and Sonny Peng "></meta>
     <title> SeaMor Wildlife Tours </title>
     <link rel="stylesheet" href="./css/style.css" />
+    <script src="./scripts/main.js"></script>
   </head>
 
   <body>
     <header id="home">
       <div class="video_wrap">
-        <video src="./img/boat_video.mp4" autoplay = "true" loop="true"></video>
+        <video src="./video/boat_video.mp4" autoplay = "true" loop="true"></video>
       </div>
       <div class="nav_underlay"></div>
       <nav>
         <ul id="home-ul">
           <li> <a href="index.html"> Home </a></li>
           <li> <a href="wildlife.html"> Wildlife </a></li>
-          <li> <a href="vessels.html"> Vessels </a></li>
+          <li> <a href="boats.html"> Boats </a></li>
           <li class="current"> <a href="contact.html"> Contact Us </a></li>
         </ul>
       </nav>
@@ -24,31 +25,31 @@
       <h1 class="seamor">SeaMor Dolphin Watching Boat Trips</h1>
     </header>
 
-    <section id="one">
+    <section class="box" id="one">
       <div class="crop">
-        <img src="./img/dolphin.png" alt="">
+        <img src="./img/dolphin.png" alt=""/>
       </div>
       <h2>Dolphins</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia placeat eligendi laboriosam eum iure quisquam quam natus id rem excepturi?</p>
-      <a href="wildlife.html">Read More</a>
+      <a onclick="readmore(this.id)" id="dolphin_read_more">Read More</a>
     </section>
 
-    <section id="two">
+    <section class="box" id="two">
       <div class="crop">
-        <img src="./img/islander.png" alt="">
+        <img src="./img/islander.png" alt=""/>
       </div>
-      <h2>Vessels</h2>
+      <h2>Boats</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum doloremque quia eveniet? Maxime excepturi quasi, ea ab ratione quae fugiat.</p>
-      <a href="vessels.html">Read More</a>
+      <a onclick="readmore(this.id)" id="boats_read_more">Read More</a>
     </section>
 
-    <section id="three">
+    <section class="box" id="three">
       <div class="crop">
-        <img src="./img/sea.png" alt="">
+        <img src="./img/sea.png" alt=""/>
       </div>
       <h2>Sea</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores ad neque consequuntur, unde inventore. Numquam ea praesentium similique, voluptate totam.</p>
-      <a href="wildlife.html">Read More</a>
+      <a onclick="readmore(this.id)" id="sea_read_more">Read More</a>
     </section>
 
     <footer>
