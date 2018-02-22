@@ -5,6 +5,7 @@
   --white:     #E8E8E8;
 }
 
+
 body {
   display: grid;
   font-family: sans-serif;
@@ -16,6 +17,10 @@ body {
   grid-template-rows: repeat(auto, 0.5fr));
   grid-gap: 2rem;
   overflow-x: hidden;
+}
+
+body#contact-us {
+  grid-template-columns: repeat(2, minmax(100px, 1fr));
 }
 
 header h1 {
@@ -132,9 +137,6 @@ section {
   border-style: solid;*/
 }
 
-#contact {
-  grid-column: span 2;
-}
 
 #map {
   width: 100%;
@@ -175,6 +177,68 @@ section a {
 
 .boat-sec:hover .boat{
   margin-left: 0rem;
+}
+
+#review {
+  display: none;
+}
+
+#contact {
+  display: none;
+}
+
+#choice {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#choice button {
+  height: 3rem;
+  width: 90%;
+  margin: auto;
+  background: var(--dark-blue);
+  border: 0;
+  text-transform: uppercase;
+  color: var(--off-white);
+}
+
+button:hover {
+  opacity: 0.6;
+  transition: 0.5s;
+
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+  padding: 1rem;
+}
+
+
+form label {
+  display: block;
+}
+
+form .wide {
+  grid-column: span 2;
+}
+
+form button, form input, form textarea {
+  box-sizing: border-box;
+  grid-column: span 1;
+  width: 100%;
+  padding: 1rem;
+  margin: 0.5rem;
+  margin-left: 0;
+  border: 1px solid var(--dark-blue);
+}
+
+form button {
+  background: var(--dark-blue);
+  border: 0;
+  text-transform: uppercase;
+  color: var(--off-white)
 }
 
 footer{
@@ -235,6 +299,7 @@ footer{
   #not-home-ul{
     margin: 3rem auto;
   }
+
 
   footer {
     grid-row: bottom;

@@ -8,7 +8,7 @@
   <script src="./scripts/main.js"></script>
 </head>
 
-<body>
+<body id="contact-us">
 
   <header id="not-home">
     <nav>
@@ -22,7 +22,7 @@
     </nav>
   </header>
 
-  <section id="contact">
+  <section id="map-section">
     <h3>Where to find us</h3>
     <div id="map">
       <script src="./scripts/map.js"></script>
@@ -32,9 +32,59 @@
     </div>
   </section>
 
-  <section class="review">
+  <section id="review">
     <h3>Leave a Review</h3>
+    <form>
+      <p>
+        <label for="first-name">First Name:</label>
+        <input type="text" name="first-name" value=""/>
+      </p>
+      <p>
+        <label for="last-name">Last Name:</label>
+        <input type="name" name="last-name" value=""/>
+      </p>
+      <p>
+        <label for="email">Email Address:</label>
+        <input type="text" name="email" value=""/>
+      </p>
+      <p class="wide">
+        <label for="review">Review:</label>
+        <textarea name="review" rows="5"></textarea>
+      </p>
+      <p class="wide">
+          <button type="button" name="button">Submit</button>
+      </p>
+    </form>
+  </section>
 
+  <section id="contact">
+    <h3>Get in Touch</h3>
+    <form>
+      <p>
+        <label for="first-name">First Name:</label>
+        <input type="text" name="first-name" value=""/>
+      </p>
+      <p>
+        <label for="last-name">Last Name:</label>
+        <input type="name" name="last-name" value=""/>
+      </p>
+      <p>
+        <label for="email">Email Address:</label>
+        <input type="text" name="email" value=""/>
+      </p>
+      <p class="wide">
+        <label for="review">Review:</label>
+        <textarea name="review" rows="5"></textarea>
+      </p>
+      <p class="wide">
+          <button type="button" name="button">Submit</button>
+      </p>
+    </form>
+  </section>
+
+  <section id="choice">
+    <button onclick="choice(this.id)"  type="button" id="review-button">Leave a Review</button>
+    <button onclick="choice(this.id)"  type="button" id="contact-button">Contact Us</button>
   </section>
 
   <footer>

@@ -47,3 +47,19 @@ function readmore(id) {
   }
 
 }
+
+function choice(id){
+  var button  = document.getElementById(id);
+  var contact = document.getElementById('contact');
+  var review  = document.getElementById('review');
+
+  if(button.id == 'review-button') {
+    review.style.display = 'inherit';
+    contact.style.display = 'none';
+
+  }
+  if(button.id == 'contact-button') {
+    contact.style.display = 'inherit';
+    review.style.display = 'none';
+  }
+}

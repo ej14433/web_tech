@@ -5,8 +5,44 @@
   --white:     #E8E8E8;
 }
 
+*{
+  box-sizing: border-box;
+}
+
 body {
-  font-family: sans-serif;
-  color: var(--off-white);
   background-color: var(--blue);
+  color: var(--off-white);
+  font-family: 'Segoe UI', Tahome, Geneva, Verdana, sans-serif;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+}
+
+form label {
+  display: block;
+}
+
+form p {
+  margin: 0;
+}
+
+form .wide {
+  grid-column: span 2;
+}
+
+form button, form input, form textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid var(--dark-blue);
+}
+
+form button {
+  background: var(--dark-blue);
+  border: 0;
+  text-transform: uppercase;
+  color: var(--off-white)
 }
