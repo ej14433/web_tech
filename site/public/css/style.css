@@ -166,6 +166,17 @@ section a {
   display: none;
 }
 
+.boat {
+  margin-left: -50rem;
+  transition: 1.5s;
+  width: 10rem;
+  height: auto;
+}
+
+.boat-sec:hover .boat{
+  margin-left: 0rem;
+}
+
 footer{
   height: 5rem;
   background-color: var(--dark-blue);
