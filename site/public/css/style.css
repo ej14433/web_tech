@@ -53,10 +53,15 @@ nav ul {
   display: grid;
   list-style: none;
   text-align: center;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns:2fr repeat(4, 1fr);
   grid-gap: 2rem;
   padding: 0;
   margin: 0.5rem;
+}
+
+.logo {
+  width: 200px;
+  margin-top: -1rem;
 }
 
 #not-home-ul {
@@ -157,6 +162,10 @@ section a {
   margin: 2rem auto;
 }
 
+.more {
+  display: none;
+}
+
 footer{
   height: 5rem;
   background-color: var(--dark-blue);
@@ -178,7 +187,7 @@ footer{
     display: grid;
     grid-row: span 1;
     grid-column: span 3;
-    margin-right: 8rem;
+    margin-right: 0rem;
   }
 
   section a {
@@ -187,13 +196,25 @@ footer{
 
   nav ul {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    grid-gap: 2rem 4rem;
+    grid-template-rows: repeat(5, 1fr);
+    grid-gap: 1rem 3rem;
+  }
+
+  .logo {
+  }
+
+  .logo-li {
+    display: none;
+  }
+
+  li {
+    margin: 0.5rem 0.5rem;
   }
 
   #contact {
     grid-row: span 1;
     grid-column: span 3;
+    margin-right: 0;
   }
 
   #home-ul {
