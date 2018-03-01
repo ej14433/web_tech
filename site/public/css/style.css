@@ -302,7 +302,7 @@ footer{
 
 
   footer {
-    grid-row: bottom;
+    grid-row: 10;
   }
 
 }

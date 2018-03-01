@@ -10,6 +10,7 @@
   "author": "Elis Jones and Sonny Peng",
   "license": "ISC",
   "dependencies": {
-    "jsdom": "^11.6.1"
+    "jsdom": "^11.6.1",
+    "sqlite3": "^3.1.13"
   }
 }
