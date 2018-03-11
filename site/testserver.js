@@ -5,7 +5,7 @@ var http = require('http');
 var params = {
     'host': 'localhost',
     'port': 8080,
-    'path': '/../index.html',
+    'path': '//securitytestfile.txt',
     'method': 'GET'
 };
 

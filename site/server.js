@@ -65,7 +65,7 @@ function handle(request, response) {
 
 // Forbid any resources which shouldn't be delivered to the browser.
 function isBanned(url) {
-    if (bandotdot(url)) return true
+    if (banexploit(url)) return true
     for (var i=0; i<banned.length; i++) {
         var b = banned[i];
         if (url.startsWith(b)) return true;
@@ -120,8 +120,8 @@ function banUpperCase(root, folder) {
     }
 }
 
-function bandotdot(url){
-  if(url.includes("..")){
+function banexploit(url){
+  if(url.includes("/.") || url.includes("//") || url.includes(" ")){
     return true;
   }
 }
