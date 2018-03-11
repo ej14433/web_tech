@@ -13,6 +13,7 @@
 // Choose a port, e.g. change the port to the default 80, if there are no
 // privilege issues and port number 80 isn't already in use. Choose verbose to
 // list banned files (with upper case letters) on startup.
+'use strict'
 
 var port = 8080;
 var verbose = true;
@@ -64,6 +65,7 @@ function handle(request, response) {
 
 // Forbid any resources which shouldn't be delivered to the browser.
 function isBanned(url) {
+    if (bandotdot(url)) return true
     for (var i=0; i<banned.length; i++) {
         var b = banned[i];
         if (url.startsWith(b)) return true;
@@ -116,6 +118,12 @@ function banUpperCase(root, folder) {
         if ((mode & folderBit) == 0) continue;
         banUpperCase(root, file);
     }
+}
+
+function bandotdot(url){
+  if(url.includes("..")){
+    return true;
+  }
 }
 
 // The most common standard file extensions are supported, and html is
