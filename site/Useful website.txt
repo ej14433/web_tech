@@ -12,3 +12,6 @@ https://aqua.org/
 
 Tutotial for video header:
 https://www.youtube.com/watch?v=Xy3GlrddZFI
+
+Tutorial for star rating:
+https://codepen.io/amethystlei/pen/YXpoWM?page=1
