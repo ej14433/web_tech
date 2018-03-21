@@ -32,6 +32,7 @@ start();
 function start() {
     if (! checkSite()) return;
     types = defineTypes();
+
     banned = [];
     banUpperCase("./public/", "");
     var service = http.createServer(handle);
@@ -53,10 +54,21 @@ function checkSite() {
 
 // Serve a request by delivering a file.
 function handle(request, response) {
+
     var url = request.url.toLowerCase();
     if (url.endsWith("/")) url = url + "index.html";
     if (isBanned(url)) return fail(response, NotFound, "URL has been banned");
     var type = findType(url);
+    //dealing with HTML and XHTML, New and old browser
+    if (types = "application/xhtml+xml"){
+      var otype = "text/html";
+      var ntype = "application/xhtml+xml";
+      var header = request.headers.accept;
+      var accepts = header.split(",");
+      if (accepts.indexOf(ntype) >= 0) types = ntype;
+      else types = otype;
+    }
+
     if (type == null) return fail(response, BadType, "File type unsupported");
     var file = "./public" + url;
     fs.readFile(file, ready);
