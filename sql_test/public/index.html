@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta name="author" content="Elis Jones and Sonny Peng "></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title> SeaMor Wildlife Tours </title>
+    <script type="text/javascript" src="main.js"></script>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <form>
+      <ul>
+        <li>
+          <section>
+            <label for="date">Date:</label>
+            <input id='date' type="date" name="date" value="2018-04-04" required></input>
+          </section>
+        </li>
+        <li>
+          <section>
+            <label for="seats">No. of persons: </label>
+            <input id="seats" type="text" name="seats" value="1" required></input>
+          </section>
+        </li>
+        <li>
+          <button type="button" name="button" onclick="search()">Search</button>
+        </li>
+        <li>
+          <section id="trips">
+            <select id="tripList">
+              <option value="empty"></option>
+            </select>
+          </section>
+        </li>
+        <li>
+          <button type="button" name="button" onclick="book()">Book</button>
+        </li>
+      </ul>
+    </form>
+  </body>
+</html>

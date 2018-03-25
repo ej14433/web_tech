@@ -10,7 +10,12 @@
   "author": "Elis Jones and Sonny Peng",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
     "jsdom": "^11.6.1",
-    "sqlite3": "^3.1.13"
+    "json": "^9.0.6",
+    "nodemon": "^1.17.2",
+    "sqlite3": "^3.1.13",
+    "xmlhttprequest": "^1.8.0"
   }
 }
