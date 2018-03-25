@@ -54,22 +54,44 @@ function checkSite() {
 
 // Serve a request by delivering a file.
 function handle(request, response) {
-
     var url = request.url.toLowerCase();
-    if (url.endsWith("/")) url = url + "index.html";
-    if (isBanned(url)) return fail(response, NotFound, "URL has been banned");
     var type = findType(url);
-    //dealing with HTML and XHTML, New and old browser
-    if (types = "application/xhtml+xml"){
-      var otype = "text/html";
-      var ntype = "application/xhtml+xml";
-      var header = request.headers.accept;
-      var accepts = header.split(",");
-      if (accepts.indexOf(ntype) >= 0) types = ntype;
-      else types = otype;
+    if (isBanned(url)){                                 //check invalid url
+      return fail(response, NotFound, "URL has been banned");
+    }else if (url.endsWith("/")) {//check
+      if (fs.existsSync(url)){
+        url = url + "index.html";
+        type = findType(url);
+      }else {
+        return fail(response, BadType, "Folder not found");
+      }
+    }else{
+      if (type == null){
+        var testurl = "./public" + url + ".html";
+        var testfolder = "./public" + url + "/";
+        if (fs.existsSync(testurl)) {
+          url = url + ".html";
+          type = findType(url);
+        }else if (fs.existsSync(testfolder)){
+          var checkindex = testfolder + "index.html";
+          if(fs.existsSync(checkindex)){
+            url = url + "/index.html";
+            type = findType(url);
+          }else{
+            return fail(response, BadType, "File or Folder not found");
+          }
+        }else{
+          return fail(response, BadType, "File or Folder not found");
+        }
+      }
     }
 
-    if (type == null) return fail(response, BadType, "File type unsupported");
+  //  if (isBanned(url)) return fail(response, NotFound, "URL has been banned");
+
+//    var type = findType(url);
+    //dealing with HTML and XHTML, New and old browser
+
+//    if (type == null) return fail(response, BadType, "File type unsupported");
     var file = "./public" + url;
     fs.readFile(file, ready);
     function ready(err, content) { deliver(response, type, err, content); }
