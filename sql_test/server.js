@@ -23,14 +23,19 @@ app.get('/trips?*', function(req, res) {
 });
 
 app.get('/book?*', function(req, res) {
-  const db      = new sql.Database('./data.db', function (err) { if(err) throw err; });
+  const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
   var regex = /[0-9]{1,2}/;
 
   if (req.query.tripId.match(regex)) {
-    sqljs.bookTrip(db, req.query.tripId, req.query.seats, function (booking) {
-      res.send(booking);
+    sqljs.bookTrip(db, req.query.tripId, req.query.seats, function () {
+      res.send();
     });
   }
+});
+
+app.post('/login/attempt?*', function(req, res) {
+  console.log(req);
+  res.send('log');
 });
 
 app.listen('8080', function() {

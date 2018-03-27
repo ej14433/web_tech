@@ -8,19 +8,33 @@ function getTripsByDate(db, date, seats, callback) {
     db.all(query, function(err, rows) {
       if (err) throw err;
       callback(rows);
+      db.close();
     });
   });
-  db.close();
 }
 
 function bookTrip(db, tripId, seats, callback) {
   db.serialize(function() {
-    var query = 'update trips set seatsAvail = seatsAvail-' + seats + ' where tripId = ' + tripId;
-    db.all(query, function(err) {
-      if (err) throw err;
+    var query = 'select * from trips where tripId = ' + tripId + ' and seatsAvail >= ' + seats;
+    db.all(query, function (err, rows) {
+      if(err) throw err;
+      if(rows) {
+        query = 'update trips set seatsAvail = seatsAvail-' + seats + ' where tripId = ' + tripId;
+        db.run(query, function(err) {
+          if (err) throw err;
+        });
+        query = "insert into bookings (tripId, userId, passengers) values (" + tripId + ", 'ej'," + seats + ")";
+        db.run(query, function (err) {
+          if (err) throw err;
+          callback();
+          db.close();
+        });
+        query = "select * from trips where userId "
+      } else {
+        callback();
+      }
     });
   });
-  db.close();
 }
 
 module.exports = {
