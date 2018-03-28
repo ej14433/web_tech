@@ -53,7 +53,7 @@ function bookTrip() {
   var request = prepGet(url);
   request.onreadystatechange = function () {
     if (request.readyState == XMLHttpRequest.DONE) {
-      console.log(request.response);
+      alert(request.response);
     }
   }
 }
