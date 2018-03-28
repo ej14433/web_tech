@@ -54,13 +54,11 @@ function bookTrip() {
   var seats   = latestSeats;
   var url     = 'book?tripId=' + tripId + '&seats=' + seats;
   var request = prepGet(url);
-
   request.onreadystatechange = function () {
     if (request.readyState == XMLHttpRequest.DONE) {
-      alert('Booked');
+      console.log(request.response);
     }
   }
-
 }
 
 function prepGet(url) {
@@ -87,7 +85,7 @@ function loginAcc() {
 
   request.onreadystatechange = function () {
     if (request.readyState == XMLHttpRequest.DONE) {
-      alert(request.response);
+      alert('Booked');
     }
   }
 }

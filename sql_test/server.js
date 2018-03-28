@@ -1,14 +1,49 @@
-const express = require('express');
-const app     = express();
-const sql     = require('sqlite3');
-const sqljs   = require('./sql.js');
-const path    = require('path');
+const express         = require('express');
+const app             = express();
+const sql             = require('sqlite3');
+const sqljs           = require('./sql.js');
+const path            = require('path');
+const session         = require('express-session')
+const passport        = require('passport');
+const GoogleStrategy  = require('passport-google-oauth').OAuth2Strategy;
+
+app.use(session({
+  secret: 'verygoodsecret' ,
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.use(new GoogleStrategy({
+    clientID: "319208830711-6i7o313qovpnr3hjun10jffle1hp0gah.apps.googleusercontent.com",
+    clientSecret: "11cvHyj5Gr-82pZen6yrg8oJ",
+    callbackURL: "http://localhost:8080/auth/google/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    // sqljs.findOrCreate(profile.id, function(err, user) {
+      return done(null, profile.id);
+  }
+));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname + '/public/index.html'))
+  res.sendFile(path.join(__dirname + '/public/book.html'))
 });
+
+// app.get('/book/', function(req, res) {
+//   res.sendFile(path.join(__dirname + '/public/book.html'))
+// });
+
 
 app.get('/trips?*', function(req, res) {
   const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
@@ -23,21 +58,31 @@ app.get('/trips?*', function(req, res) {
 });
 
 app.get('/book?*', function(req, res) {
-  const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
-  var regex = /[0-9]{1,2}/;
-
-  if (req.query.tripId.match(regex)) {
-    sqljs.bookTrip(db, req.query.tripId, req.query.seats, function () {
-      res.send();
-    });
+  if(req.user) {
+    const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
+    var regex = /[0-9]{1,2}/;
+    if (req.query.tripId.match(regex)) {
+      sqljs.bookTrip(db, req.query.tripId, req.query.seats, '11111'/*req.user*/, function () {
+        res.send('Booked!');
+      });
+    }
+  } else {
+    res.send('You need to Sign In')
   }
-});
-
-app.post('/login/attempt?*', function(req, res) {
-  console.log(req);
-  res.send('log');
 });
 
 app.listen('8080', function() {
   console.log('Server started on port 8080');
 });
+
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.email'] })
+);
+
+app.get('/auth/google/callback',
+  passport.authenticate('google', {
+    failureRedirect: '/' }),
+  function(req, res) {
+    res.redirect('/');
+  }
+);
