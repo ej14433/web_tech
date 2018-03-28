@@ -14,8 +14,8 @@ window.addEventListener('load', function (e) {
 
 function searchAvail() {
   var tripList  = document.getElementById('tripList');
-  var date  = document.getElementById('date').value;
-  var seats = document.getElementById('seats').value;
+  var date  = document.getElementById('date-input').value;
+  var seats = document.getElementById('seats-input').value;
   var url   = '/search/?date=' + date + '&seats=' +  seats;
   var request = prepGet(url);
   var trips = [];
