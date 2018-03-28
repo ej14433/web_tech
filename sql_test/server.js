@@ -29,27 +29,24 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://localhost:8080/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-    // sqljs.findOrCreate(profile.id, function(err, user) {
-      return done(null, profile.id);
+      var user = {
+        id: profile.id,
+        name: profile.givenName + " " + profile.familyName
+      }
+      return done(null, user);
   }
 ));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname + '/public/book.html'))
+  res.sendFile(path.join(__dirname + '/public/index.html'))
 });
 
-// app.get('/book/', function(req, res) {
-//   res.sendFile(path.join(__dirname + '/public/book.html'))
-// });
-
-
-app.get('/trips?*', function(req, res) {
+app.get('/search/', function(req, res) {
   const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
   var regexDate = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
   var regexSeat = /[0-9]{1,2}/;
-
   if (req.query.date.match(regexDate) && req.query.seats.match(regexSeat)) {
     sqljs.getTripsByDate(db, "date('"+ req.query.date +"')", req.query.seats, function (rows) {
       res.send(rows)
@@ -57,12 +54,12 @@ app.get('/trips?*', function(req, res) {
   }
 });
 
-app.get('/book?*', function(req, res) {
+app.get('/book/', function(req, res) {
   if(req.user) {
     const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
     var regex = /[0-9]{1,2}/;
     if (req.query.tripId.match(regex)) {
-      sqljs.bookTrip(db, req.query.tripId, req.query.seats, '11111'/*req.user*/, function () {
+      sqljs.bookTrip(db, req.query.tripId, req.query.seats, req.user.id, function () {
         res.send('Booked!');
       });
     }
