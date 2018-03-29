@@ -5,19 +5,19 @@
   box-sizing: border-box;
 }
 
-#form-container {
+#full {
   height: 100vh;
   width: 100vw;
-  background-color: grey;
-  padding-top: 30vh;
+  background-color: lightgrey;
+
+  padding: 30% 10%;
 }
 
 #trip-search-form {
   display: grid;
   background-color: white;
-  height: 25rem;
-
-  max-width: 25rem;
+  height: 15rem;
+  max-width: 40rem;
 
   grid-template-columns: 1fr 1fr;
   grid-gap: 1rem;
@@ -26,24 +26,28 @@
   padding: 1rem;
   border-color: black;
   border-style: solid;
-  border-width: medium;
+  border-width: thin;
   border-radius: 1rem;
 }
 
-#google-sign-in {
+.form-a {
   display: inline;
   text-decoration: none;
+  font-size: 1rem;
   color: inherit;
   border-radius: 0.5rem;
-  border-color: grey;
+  border-color: lightgrey;
   border-style: solid;
   border-width: thin;
   width: 50%;
-  height: 50%;
+  height: 60%;
   margin-left: 25%;
-
   display: grid;
   align-items: center;
+}
+
+.form-a:hover {
+  border-color: black;
 }
 
 #date-section {
@@ -55,17 +59,18 @@
 }
 
 .trip-form-input {
-  height: 60%;
+  height: 80%;
   width: 100%;
 
   text-align: center;
   font-size: inherit;
   border-radius: 0.5rem;
+  border-width: thin;
 }
 
 .trip-button {
   width: 50%;
-  height: 50%;
+  height: 60%;
   margin-left: 25%;
   border-radius: 0.5rem;
   font-size: inherit;
@@ -74,8 +79,10 @@
 #tripList {
   font-size: inherit;
   width: 100%;
-  height: 60%;
+  height: 80%;
   border-radius: 0.5rem;
+  border-color: lightgrey;
+  background-color: white;
 }
 
 .fa-google {

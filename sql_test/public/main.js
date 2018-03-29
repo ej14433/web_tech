@@ -2,6 +2,7 @@
 var latestSeats = 0;
 
 window.addEventListener('load', function (e) {
+
   var search = document.getElementById('search');
   var book   = document.getElementById('book');
 
@@ -44,6 +45,7 @@ function searchAvail() {
   if(seats == 0) {
     alert("Must search for atleast 1 person");
   }
+
 }
 
 function bookTrip() {

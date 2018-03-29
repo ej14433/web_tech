@@ -8,28 +8,29 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
-
   </head>
-
+  <header>
+    <a id="google-sign-in" class="form-a" href="/auth/google"><span><i class="fab fa-google"></i> Sign In</span></a>
+  </header>
   <body>
-    <section id="form-container">
-      <form id="trip-search-form">
-          <section id="date-section" class="trip-section">
-            <p>When?</p>
-            <input id="date-input" class="trip-form-input" type="date" name="date" value="2018-04-04" required></input>
-          </section>
-          <section class="trip-section">
-            <input id="seats-input" class="trip-form-input" type="text" name="seats" min="1" value="" placeholder="No. of Tickets"required></input>
-          </section>
-          <section class="trip-section">
-            <select id="tripList">
-              <option value="empty"></option>
-            </select>
-          </section>
-          <button id="search" class="trip-button" type="button" name="button">Search</button>
-          <button id="book" class="trip-button" type="button" name="button">Book</button>
-          <a id="google-sign-in" href="/auth/google"><span><i class="fab fa-google"></i> Sign In</span></a>
-      </form>
+    <section id="full">
+      <section id="search-form">
+        <form id="trip-search-form">
+            <section id="date-section" class="trip-section">
+              <input id="date-input" class="trip-form-input" type="date" name="date" value="2018-04-04" required></input>
+            </section>
+            <section class="trip-section">
+              <input id="seats-input" class="trip-form-input" type="text" name="seats" min="1" value="" placeholder="No. of Tickets"required></input>
+            </section>
+            <section class="trip-section">
+              <select id="tripList">
+                <option value="empty"></option>
+              </select>
+            </section>
+            <button type="button" id="search" class="form-a" href="">Search</button>
+            <button type="button" id="book" class="form-a" href="">Book</button>
+        </form>
+      </section>
     </section>
   </body>
 </html>
