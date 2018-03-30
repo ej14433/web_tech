@@ -1,6 +1,5 @@
 'use strict'
 var sql = require('sqlite3');
-var ret = [];
 
 function getTripsByDate(db, date, seats, callback) {
   db.serialize(function() {

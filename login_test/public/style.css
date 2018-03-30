@@ -12,7 +12,7 @@
 body {
   background-color: var(--blue);
   color: var(--off-white);
-  font-family: 'Segoe UI', Tahome, Geneva, Verdana, sans-serif;
+  font-family: 'Roboto',sans-serif;
 }
 
 form {
@@ -21,28 +21,16 @@ form {
   grid-gap: 1rem;
 }
 
-form label {
-  display: block;
-}
-
-form p {
-  margin: 0;
-}
-
-form .wide {
-  grid-column: span 2;
-}
-
 form button, form input, form textarea {
   box-sizing: border-box;
   width: 100%;
   padding: 1rem;
   border: 1px solid var(--dark-blue);
+  border-radius: 0.5rem;
 }
 
-form button {
-  background: var(--dark-blue);
-  border: 0;
-  text-transform: uppercase;
-  color: var(--off-white)
+#button {
+  grid-column: 2;
+  width: 50%;
+  justify-self: end;
 }

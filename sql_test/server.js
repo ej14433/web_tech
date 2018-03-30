@@ -3,7 +3,7 @@ const app             = express();
 const sql             = require('sqlite3');
 const sqljs           = require('./sql.js');
 const path            = require('path');
-const session         = require('express-session')
+const session         = require('express-session');
 const passport        = require('passport');
 const GoogleStrategy  = require('passport-google-oauth').OAuth2Strategy;
 
