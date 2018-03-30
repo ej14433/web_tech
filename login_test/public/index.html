@@ -10,10 +10,11 @@
   </head>
 
     <body>
-      <form action="/login" method="post">
-        <input id="username" type="text" name="username" placeholder="Username" autocomplete="username" required>
-        <input id="password" type="password" name="password" placeholder="Password" autocomplete="current-password" required>
-        <input id="button" type="submit" value="Submit">
+      <form class="login-form" action="/login" method="post">
+        <input class="login-input" id="username" type="text" name="username" placeholder="Username" autocomplete="username" required=true />
+        <input class="login-input" id="password" type="password" name="password" placeholder="Password" autocomplete="current-password" required=true />
+        <input class="login-button" type="submit" value="Log In" />
+        <a class="login-a" href="#">Lost your password?</a>
       </form>
     </body>
   </html>

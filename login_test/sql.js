@@ -12,15 +12,15 @@ function storeUserHash(db, user, hash, callback) {
   callback();
 }
 
-function attemptSignIn(db, user, callback) {
+function getTripsByDate(db, date, seats, callback) {
   db.serialize(function() {
-    var query = "select * from users where username = '" + user + "'";
-    db.each(query, function(err, rows) {
-      if(err) throw err;
-      callback(rows.password);
+    var query = "select * from trips where date = " + date + " and seatsAvail >= " + seats;
+    db.all(query, function(err, rows) {
+      if (err) throw err;
+      callback(rows);
+      db.close();
     });
   });
-  db.close();
 }
 
 function findUser(db, user, callback) {
@@ -44,7 +44,7 @@ function findUserById(db, id, callback) {
 
 module.exports = {
   storeUserHash : storeUserHash,
-  attemptSignIn : attemptSignIn,
   findUser      : findUser,
-  findUserById  : findUserById
+  findUserById  : findUserById,
+  getTripsByDate: getTripsByDate
 }

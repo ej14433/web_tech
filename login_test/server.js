@@ -43,7 +43,7 @@ passport.deserializeUser(function(id, done) {
 });
 
 app.post('/login',
-  passport.authenticate('local', { successRedirect: '/right',
+  passport.authenticate('local', { successRedirect: '/book',
                                    failureRedirect: '/wrong'})
 );
 
@@ -51,21 +51,33 @@ app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname + '/public/index.html'))
 });
 
-app.get('/right', function(req, res) {
-  res.sendFile(path.join(__dirname + '/public/right.html'))
+app.get('/book', function(req, res) {
+  res.sendFile(path.join(__dirname + '/public/book.html'))
 });
 
 app.get('/wrong', function(req, res) {
   res.redirect('/');
 });
 
-app.post('/book', function(req, res) {
-  if(req.session.passport.user) {
-    console.log('book');
-  } else {
-    console.log('log in');
+app.get('/search/', function(req, res) {
+  const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
+  var regexDate = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+  var regexSeat = /[0-9]{1,2}/;
+  if (req.query.date.match(regexDate) && req.query.seats.match(regexSeat)) {
+    sqljs.getTripsByDate(db, "date('"+ req.query.date +"')", req.query.seats, function (rows) {
+      res.send(rows)
+    });
   }
-  res.redirect('/right')
+});
+
+app.post('/book/try', function(req, res) {
+  if(req.session.passport) {
+    if(req.session.passport.user) {
+      res.redirect('/book/confirm');
+  }
+  } else {
+    res.redirect('/');
+  }
 });
 
 app.listen('8080', function() {
