@@ -44,16 +44,12 @@ passport.deserializeUser(function(id, done) {
 });
 
 app.post('/login',
-  passport.authenticate('local', { successRedirect: '/book',
-                                   failureRedirect: '/'})
-);
+  passport.authenticate('local', { failureRedirect: '/wrong'}), function (req, res) {
+    res.send('success');
+});
 
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname + '/public/index.html'))
-});
-
-app.get('/book', function(req, res) {
-  res.sendFile(path.join(__dirname + '/public/book.html'))
 });
 
 app.get('/search/', function(req, res) {
@@ -80,9 +76,12 @@ app.post('/book/try', function(req, res) {
 app.post('/register', function(req, res) {
   const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
   bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
-    sqljs.storeUserHash(db, req.body.username, hash, req.body.email, function() {});
+    if(err) res.send(err);
+    sqljs.storeUserHash(db, req.body.username, hash, req.body.email, function(err) {
+      if(err) res.send(err);
+      if(!err) res.send('success');
+    });
   });
-  res.send('registered');
 });
 
 app.listen('8080', function() {

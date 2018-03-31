@@ -2,16 +2,22 @@
 var latestSeats = 0;
 
 window.addEventListener('load', function (e) {
-  
+
   var register = document.getElementById('register');
   var search = document.getElementById('search');
+  var signin = document.getElementById('signin');
   var registerButton = document.getElementById('register-button');
-  var loginButton    = document.getElementById('login-button')
+  var loginButton    = document.getElementById('login-button');
+  var lost   = document.getElementById('lost');
+  var lostSignIn = document.getElementById('lost-signin');
 
   if (signin) {
     register.addEventListener('click', registerView);
     loginButton.addEventListener('click', loginUser);
+    signin.addEventListener('click', signinView);
     registerButton.addEventListener('click', registerNewUser);
+    lost.addEventListener('click', lostView);
+    lostSignIn.addEventListener('click', signinView);
   }
   if (search) {
     search.addEventListener('click', searchAvail);
@@ -20,9 +26,11 @@ window.addEventListener('load', function (e) {
 });
 
 function signinView() {
+  var forms = document.getElementsByClassName('login-form');
   var signInForm = document.getElementById('signin-form');
-  var registerForm = document.getElementById('register-form');
-  registerForm.style.display = 'none';
+  for(var i = 0; i < forms.length; i++) {
+    forms[i].style.display = 'none';
+  }
   signInForm.style.display = 'grid';
 }
 
@@ -31,6 +39,20 @@ function registerView() {
   var registerForm = document.getElementById('register-form');
   signInForm.style.display = 'none';
   registerForm.style.display = 'grid';
+}
+
+function bookingView() {
+  var bookingForm = document.getElementById('booking-form');
+  var signInForm = document.getElementById('signin-form');
+  signInForm.style.display = 'none';
+  bookingForm.style.display = 'grid';
+}
+
+function lostView() {
+  var lostForm = document.getElementById('lost-form');
+  var signInForm = document.getElementById('signin-form');
+  signInForm.style.display = 'none';
+  lostForm.style.display = 'grid';
 }
 
 function searchAvail() {
@@ -81,7 +103,9 @@ function loginUser() {
 
       request.onreadystatechange = function () {
         if(request.readyState == XMLHttpRequest.DONE) {
-          console.log(request.response);
+          if(request.response == 'success') {
+            bookingView();
+          }
         }
       }
     }
@@ -95,24 +119,28 @@ function registerNewUser() {
   var email     = document.getElementById('register-email').value;
 
   validRegister(username, password, password2, email, function(err) {
-    if(err) showErr(err);
+    if(err) showMessage(err);
     if(!err) {
       var params    = "username="+username+"&password="+password+"&email="+email;
       var url       = "/register";
       var request   = prepPost(url);
       request.send(params);
-
       request.onreadystatechange = function () {
         if(request.readyState == XMLHttpRequest.DONE) {
-          console.log(request.response);
+          if(request.response == 'success') {
+            showMessage('Registered');
+            signinView();
+          } else {
+            showMessage(request.response);
+          }
         }
       }
     }
   });
 }
 
-function showErr(err){
-  document.getElementById('error-message').innerHTML = err;
+function showMessage(message){
+  document.getElementById('error-message').innerHTML = message;
   var error = document.getElementById('error');
   error.style.display = 'grid';
   error.style.opacity = 1;
@@ -124,8 +152,11 @@ function validLogin(username, password, callback) {
   if(!password || !username) {
     callback('All field must be filled');
   }
-  if(password.length<8) {
-    callback('All passwords are atleast 8 characters')
+  // if(password.length<8) {
+  //   callback('All passwords are atleast 8 characters')
+  // }
+  else {
+    callback();
   }
 }
 
@@ -133,15 +164,12 @@ function validRegister(username, password, password2, email, callback) {
   if(!password || !username || !password2 || !email) {
     callback('All fields must be filled');
   }
-
   // else if (password.length < 8) {
     // callback('Password must be atleast 8 characters');
   // }
-
   else if(!(password === password2)) {
     callback('Passwords do not match');
-  }
-  else {
+  } else {
     callback();
   }
 }

@@ -23,9 +23,31 @@
         <input class="login-input" id="username" type="text" name="username" placeholder="Username" autocomplete="username" required=true />
         <input class="login-input" id="password" type="password" name="password" placeholder="Password" autocomplete="current-password" required=true />
         <input class="login-button" id="login-button" type="button" value="Log In" />
-        <a class="login-a" href="#">Lost your password?</a>
+        <a class="login-a" id="lost" href="#">Lost your password?</a>
         <a class="login-a" id="register" href="#">Register</a>
       </form>
+
+      <form class="login-form" id="lost-form">
+        <input class="login-input wide" id="lost-email" type="text" name="email" placeholder="Email" autocomplete="email" required=true />
+        <input class="login-button" id="send-email" type="button" value="Reset Password" />
+        <a class="login-a wide" id="lost-signin" href="#">Sign In</a>
+      </form>
+
+      <form class="login-form" id="booking-form" action="/book/try" method="post">
+        <input class="login-input" id="date-input" type="date" name="date" value="2018-01-01" required=true />
+        <input class="login-input" id="seats-input" type="text" name="seats" value="" placeholder="# of Seats" required=true />
+        <input class="login-button narrow" id="search" type="button" value="Search" />
+        <select class="form-select" id="tripList" name="">
+          <option value=""></option>
+        </select>
+        <input class="login-button" type="submit" value="Book Trip" />
+      </form>
+
+      <section class="message">
+        <p>Are you sure you want to book this trip?</p>
+        <input class="login-button" type="button" value="Confirm">
+      </section>
+
       <section class="error-overlay" id="error">
         <section class="error-message" id="error-message">
         </section>

@@ -5,11 +5,11 @@ function storeUserHash(db, user, hash, email, callback) {
   db.serialize(function() {
     var query = "insert into users (username, password, email) values ('" + user +  "', '" + hash + "', '"+email+"')";
     db.run(query, function(err) {
-      if (err) throw err;
+      if (err) callback(err);
+      if (!err) callback();
     });
   });
   db.close();
-  callback();
 }
 
 function getTripsByDate(db, date, seats, callback) {
