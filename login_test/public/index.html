@@ -10,11 +10,25 @@
   </head>
 
     <body>
-      <form class="login-form" action="/login" method="post">
+      <form class="login-form tall" id="register-form">
+        <input class="login-input wide" id="register-username" type="text" name="username" placeholder="Username" autocomplete="username" required=true />
+        <input class="login-input" id="register-password" type="password" name="password" placeholder="Password" autocomplete="new-password" required=true />
+        <input class="login-input" id="register-password2" type="password" name="password2" placeholder="Confirm Password" autocomplete="new-password" required=true />
+        <input class="login-input wide" id="register-email" type="email" name="email" placeholder="Email" autocomplete="email" required=true />
+        <input class="login-button" id="register-button" type="button" value="Register" />
+        <a class="login-a wide" id="signin" href="#">Sign In</a>
+      </form>
+
+      <form class="login-form" id="signin-form">
         <input class="login-input" id="username" type="text" name="username" placeholder="Username" autocomplete="username" required=true />
         <input class="login-input" id="password" type="password" name="password" placeholder="Password" autocomplete="current-password" required=true />
-        <input class="login-button" type="submit" value="Log In" />
+        <input class="login-button" id="login-button" type="button" value="Log In" />
         <a class="login-a" href="#">Lost your password?</a>
+        <a class="login-a" id="register" href="#">Register</a>
       </form>
+      <section class="error-overlay" id="error">
+        <section class="error-message" id="error-message">
+        </section>
+      </section>
     </body>
   </html>

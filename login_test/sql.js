@@ -1,9 +1,9 @@
 'use strict'
 var sql = require('sqlite3');
 
-function storeUserHash(db, user, hash, callback) {
+function storeUserHash(db, user, hash, email, callback) {
   db.serialize(function() {
-    var query = "insert into users (username, password) values ('" + user +  "', '" + hash + "')";
+    var query = "insert into users (username, password, email) values ('" + user +  "', '" + hash + "', '"+email+"')";
     db.run(query, function(err) {
       if (err) throw err;
     });

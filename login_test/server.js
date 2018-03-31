@@ -4,6 +4,7 @@ const sql             = require('sqlite3');
 const sqljs           = require('./sql.js');
 const path            = require('path');
 const bcrypt          = require('bcrypt');
+const saltRounds      = 10;
 var passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
 var session  = require("express-session"), bodyParser = require("body-parser");
 
@@ -44,7 +45,7 @@ passport.deserializeUser(function(id, done) {
 
 app.post('/login',
   passport.authenticate('local', { successRedirect: '/book',
-                                   failureRedirect: '/wrong'})
+                                   failureRedirect: '/'})
 );
 
 app.get('/', function(req, res) {
@@ -53,10 +54,6 @@ app.get('/', function(req, res) {
 
 app.get('/book', function(req, res) {
   res.sendFile(path.join(__dirname + '/public/book.html'))
-});
-
-app.get('/wrong', function(req, res) {
-  res.redirect('/');
 });
 
 app.get('/search/', function(req, res) {
@@ -78,6 +75,14 @@ app.post('/book/try', function(req, res) {
   } else {
     res.redirect('/');
   }
+});
+
+app.post('/register', function(req, res) {
+  const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
+  bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+    sqljs.storeUserHash(db, req.body.username, hash, req.body.email, function() {});
+  });
+  res.send('registered');
 });
 
 app.listen('8080', function() {
