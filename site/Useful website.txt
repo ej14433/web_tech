@@ -15,3 +15,6 @@ https://www.youtube.com/watch?v=Xy3GlrddZFI
 
 Tutorial for star rating:
 https://codepen.io/amethystlei/pen/YXpoWM?page=1
+
+Tutorial for Express js with server and database related:
+https://www.youtube.com/watch?v=gnsO8-xJ8rs&t=1613s
