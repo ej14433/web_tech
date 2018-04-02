@@ -1,4 +1,7 @@
 "use strict"
+const validate = require('./validation.js');
+const views      = require('./views.js');
+
 var latestSeats = 0;
 
 window.addEventListener('load', function (e) {
@@ -10,49 +13,34 @@ window.addEventListener('load', function (e) {
   var loginButton    = document.getElementById('login-button');
   var lost   = document.getElementById('lost');
   var lostSignIn = document.getElementById('lost-signin');
+  var reset  = document.getElementById('reset-password');
 
-  if (signin) {
-    register.addEventListener('click', registerView);
-    loginButton.addEventListener('click', loginUser);
-    signin.addEventListener('click', signinView);
-    registerButton.addEventListener('click', registerNewUser);
-    lost.addEventListener('click', lostView);
-    lostSignIn.addEventListener('click', signinView);
-  }
-  if (search) {
-    search.addEventListener('click', searchAvail);
-  }
+  register.addEventListener('click', views.register);
+  loginButton.addEventListener('click', loginUser);
+  signin.addEventListener('click', views.signin);
+  registerButton.addEventListener('click', registerNewUser);
+  lost.addEventListener('click', views.lost);
+  lostSignIn.addEventListener('click', views.signin);
+  search.addEventListener('click', searchAvail);
+  reset.addEventListener('click', resetPassword);
 
 });
 
-function signinView() {
-  var forms = document.getElementsByClassName('login-form');
-  var signInForm = document.getElementById('signin-form');
-  for(var i = 0; i < forms.length; i++) {
-    forms[i].style.display = 'none';
+function resetPassword() {
+  var email = document.getElementById('reset-email').value;
+  var params = 'email='+email;
+  var url   = '/reset';
+  var request = prepPost(url);
+  request.send(params);
+
+  request.onreadystatechange = function () {
+    if(request.readyState == XMLHttpRequest.DONE) {
+      if(request.response == 'Email sent') {
+        views.signin();
+      }
+      showMessage(request.response);
+    }
   }
-  signInForm.style.display = 'grid';
-}
-
-function registerView() {
-  var signInForm = document.getElementById('signin-form');
-  var registerForm = document.getElementById('register-form');
-  signInForm.style.display = 'none';
-  registerForm.style.display = 'grid';
-}
-
-function bookingView() {
-  var bookingForm = document.getElementById('booking-form');
-  var signInForm = document.getElementById('signin-form');
-  signInForm.style.display = 'none';
-  bookingForm.style.display = 'grid';
-}
-
-function lostView() {
-  var lostForm = document.getElementById('lost-form');
-  var signInForm = document.getElementById('signin-form');
-  signInForm.style.display = 'none';
-  lostForm.style.display = 'grid';
 }
 
 function searchAvail() {
@@ -65,8 +53,9 @@ function searchAvail() {
 
   var regexDate = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
   var regexSeat = /[0-9]{1,2}/;
-
-  if(seats.match(regexSeat) && date.match(regexDate) && seats > 0) {
+  validate.search(date, seats, function(err) {
+    if (err) showMessage(err);
+    if(!err) {
       request.onreadystatechange = function () {
         if(request.readyState == XMLHttpRequest.DONE) {
           trips = JSON.parse(request.response);
@@ -81,30 +70,37 @@ function searchAvail() {
           }
         }
       }
-
       latestSeats = seats;
-  }
-  if(seats == 0) {
-    alert("Must search for atleast 1 person");
-  }
+    }
+  });
+  //
+  // if(seats.match(regexSeat) && date.match(regexDate) && seats > 0) {
+  //
+  //     }
+  //
+  //
+  // }
+  // if(seats == 0) {
+  //   alert("Must search for atleast 1 person");
+  // }
 }
 
 function loginUser() {
   var username  = document.getElementById('username').value;
   var password  = document.getElementById('password').value;
 
-  validLogin(username, password, function(err) {
-    if(err) showErr(err);
+  validate.login(username, password, function(err) {
+    if(err) showMessage(err);
     if(!err) {
       var params    = "username="+username+"&password="+password;
       var url       = "/login";
       var request   = prepPost(url);
       request.send(params);
-
       request.onreadystatechange = function () {
         if(request.readyState == XMLHttpRequest.DONE) {
-          if(request.response == 'success') {
-            bookingView();
+          showMessage(request.response);
+          if(request.response == 'Success') {
+            views.booking();
           }
         }
       }
@@ -118,7 +114,7 @@ function registerNewUser() {
   var password2 = document.getElementById('register-password2').value;
   var email     = document.getElementById('register-email').value;
 
-  validRegister(username, password, password2, email, function(err) {
+  validate.register(username, password, password2, email, function(err) {
     if(err) showMessage(err);
     if(!err) {
       var params    = "username="+username+"&password="+password+"&email="+email;
@@ -129,7 +125,7 @@ function registerNewUser() {
         if(request.readyState == XMLHttpRequest.DONE) {
           if(request.response == 'success') {
             showMessage('Registered');
-            signinView();
+            views.signin();
           } else {
             showMessage(request.response);
           }
@@ -144,34 +140,8 @@ function showMessage(message){
   var error = document.getElementById('error');
   error.style.display = 'grid';
   error.style.opacity = 1;
-  setTimeout(function(){ error.style.opacity = 0;}, 500);
-  setTimeout(function(){ error.style.display = 'none'; }, 1000);
-}
-
-function validLogin(username, password, callback) {
-  if(!password || !username) {
-    callback('All field must be filled');
-  }
-  // if(password.length<8) {
-  //   callback('All passwords are atleast 8 characters')
-  // }
-  else {
-    callback();
-  }
-}
-
-function validRegister(username, password, password2, email, callback) {
-  if(!password || !username || !password2 || !email) {
-    callback('All fields must be filled');
-  }
-  // else if (password.length < 8) {
-    // callback('Password must be atleast 8 characters');
-  // }
-  else if(!(password === password2)) {
-    callback('Passwords do not match');
-  } else {
-    callback();
-  }
+  setTimeout(function(){ error.style.opacity = 0;}, 700);
+  setTimeout(function(){ error.style.display = 'none'; }, 1200);
 }
 
 function prepGet(url) {

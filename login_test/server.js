@@ -4,9 +4,18 @@ const sql             = require('sqlite3');
 const sqljs           = require('./sql.js');
 const path            = require('path');
 const bcrypt          = require('bcrypt');
+const nodemailer      = require('nodemailer');
 const saltRounds      = 10;
 var passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
 var session  = require("express-session"), bodyParser = require("body-parser");
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'seamorwildlifetours@gmail.com',
+    pass: 'C@ms32500'
+  }
+});
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
@@ -43,9 +52,12 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-app.post('/login',
-  passport.authenticate('local', { failureRedirect: '/wrong'}), function (req, res) {
-    res.send('success');
+app.post('/login', function (req, res) {
+  passport.authenticate('local', function(err, user, info) {
+    if(err) throw err;
+    if(!user) return res.send('Incorrect credentials');
+    if(user) return res.send('Success');
+  }) (req, res);
 });
 
 app.get('/', function(req, res) {
@@ -86,4 +98,17 @@ app.post('/register', function(req, res) {
 
 app.listen('8080', function() {
   console.log('Server started on port 8080');
+});
+
+app.post('/reset', function (req, res) {
+  var mailOptions = {
+    from: 'SeaMor <seamorwildlifetours@gmail.com>',
+    to: req.body.email,
+    subject: 'Reset your SeaMor Account Password',
+    text: 'Reset your password'
+  };
+  transporter.sendMail(mailOptions, function(err, info){
+    if (err) return res.send(error);
+    if (!err) return res.send('Email sent');
+  })
 });
