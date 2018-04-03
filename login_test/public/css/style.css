@@ -48,6 +48,10 @@ body {
   align-self: center;
 }
 
+#reset-form {
+  display: grid;
+}
+
 .message {
   display: none;
   grid-template-rows: 1fr 1fr;
@@ -126,4 +130,8 @@ body {
 
 .tall {
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.invisible {
+  display: none;
 }

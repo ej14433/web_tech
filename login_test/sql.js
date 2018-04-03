@@ -27,6 +27,7 @@ function findUser(db, user, callback) {
   db.serialize(function() {
     var query = "select * from users where username = '" + user + "'";
     db.all(query, function(err, rows) {
+      if (err) throw err;
       callback(err, rows[0]);
     });
   });
@@ -37,14 +38,79 @@ function findUserById(db, id, callback) {
   db.serialize(function () {
     var query = "select * from users where userId = " + id;
     db.each(query, function(err, rows) {
+      if (err) throw err;
       callback(rows);
+    });
+  });
+  db.close();
+}
+
+function findUserByEmail(db, email, callback) {
+  db.serialize(function () {
+    var query = "select * from users where email = '" + email + "'";
+    db.all(query, function(err, rows) {
+      if(err) throw err;
+      callback(rows);
+    });
+  });
+  db.close();
+}
+
+function setReset(db, email, token, expiry, callback) {
+  db.serialize(function () {
+    var query = "update users set token = '" + token + "' , expiry = " + expiry + " where email = '" + email + "'";
+    db.run(query, function(err) {
+      if(err) throw err;
+      callback();
+    });
+  });
+  db.close();
+}
+
+function checkToken(db, email, token, callback) {
+  db.serialize(function() {
+    var query = "select * from users where email = '"+email+"'";
+    db.all(query, function(err, users) {
+      if(err) throw err;
+      if(users.length > 0) {
+        var date = new Date();
+        var now = ((date.toJSON()).split("T"))[0];
+        if(users[0].token = token && users[0].token !== null ) {
+          if(now <= users[0].expiry) {
+            query = "update users set token = null, expiry = null where email = '"+email+"'";
+            db.run(query, function(err) {
+              if(err) throw err;
+              callback('Success', users[0]);
+            });
+          } else {
+            callback('Expired token');
+          }
+        } else {
+          callback('Token does not match this account');
+        }
+      }
     });
   });
 }
 
+function updatePassword(db, hash, email, callback) {
+  db.serialize(function(){
+    var query = "update users set password = '"+hash+"' where email = '"+ email + "'";
+    db.run(query, function(err) {
+      if (err) throw err;
+      callback();
+    });
+  });
+  db.close();
+}
+
 module.exports = {
-  storeUserHash : storeUserHash,
-  findUser      : findUser,
-  findUserById  : findUserById,
-  getTripsByDate: getTripsByDate
+  storeUserHash   : storeUserHash,
+  findUser        : findUser,
+  findUserById    : findUserById,
+  findUserByEmail : findUserByEmail,
+  getTripsByDate  : getTripsByDate,
+  setReset        : setReset,
+  checkToken      : checkToken,
+  updatePassword  : updatePassword
 }

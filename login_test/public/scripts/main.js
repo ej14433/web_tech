@@ -1,4 +1,4 @@
-"use strict"
+'use strict';
 const validate = require('./validation.js');
 const views      = require('./views.js');
 
@@ -14,16 +14,21 @@ window.addEventListener('load', function (e) {
   var lost   = document.getElementById('lost');
   var lostSignIn = document.getElementById('lost-signin');
   var reset  = document.getElementById('reset-password');
+  var finishReset = document.getElementById('reset-account-password');
 
-  register.addEventListener('click', views.register);
-  loginButton.addEventListener('click', loginUser);
-  signin.addEventListener('click', views.signin);
-  registerButton.addEventListener('click', registerNewUser);
-  lost.addEventListener('click', views.lost);
-  lostSignIn.addEventListener('click', views.signin);
-  search.addEventListener('click', searchAvail);
-  reset.addEventListener('click', resetPassword);
-
+  if(search) {
+    register.addEventListener('click', views.register);
+    loginButton.addEventListener('click', loginUser);
+    signin.addEventListener('click', views.signin);
+    registerButton.addEventListener('click', registerNewUser);
+    lost.addEventListener('click', views.lost);
+    lostSignIn.addEventListener('click', views.signin);
+    search.addEventListener('click', searchAvail);
+    reset.addEventListener('click', resetPassword);
+  }
+  if(finishReset) {
+    finishReset.addEventListener('click', newPassword);
+  }
 });
 
 function resetPassword() {
@@ -38,6 +43,22 @@ function resetPassword() {
       if(request.response == 'Email sent') {
         views.signin();
       }
+      showMessage(request.response);
+    }
+  }
+}
+
+function newPassword() {
+  var password = document.getElementById('new-password').value;
+  var email    = document.getElementById('hidden-email').value;
+  var token    = document.getElementById('hidden-token').value;
+  var params   = "password="+password+"&email="+email+"&token="+token;
+  var url      = "/newpassword";
+  var request  = prepPost(url);
+  request.send(params);
+
+  request.onreadystatechange = function () {
+    if(request.readyState == XMLHttpRequest.DONE) {
       showMessage(request.response);
     }
   }
