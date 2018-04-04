@@ -146,6 +146,7 @@ function registerNewUser() {
         if(request.readyState == XMLHttpRequest.DONE) {
           if(request.response == 'success') {
             showMessage('Registered');
+            sendVerification(email);
             views.signin();
           } else {
             showMessage(request.response);
@@ -154,6 +155,23 @@ function registerNewUser() {
       }
     }
   });
+}
+
+function sendVerification(email) {
+  console.log('Verifying');
+  var params    = "email="+email;
+  var url       = "/verify";
+  var request   = prepPost(url);
+  request.send(params);
+  request.onreadystatechange = function () {
+    if(request.readyState == XMLHttpRequest.DONE) {
+      if(request.response == 'Success') {
+        showMessage('Verification email sent');
+      } else {
+        showMessage(request.response);
+      }
+    }
+  }
 }
 
 function showMessage(message){

@@ -147,6 +147,7 @@ function registerNewUser() {
         if(request.readyState == XMLHttpRequest.DONE) {
           if(request.response == 'success') {
             showMessage('Registered');
+            sendVerification(email);
             views.signin();
           } else {
             showMessage(request.response);
@@ -155,6 +156,23 @@ function registerNewUser() {
       }
     }
   });
+}
+
+function sendVerification(email) {
+  console.log('Verifying');
+  var params    = "email="+email;
+  var url       = "/verify";
+  var request   = prepPost(url);
+  request.send(params);
+  request.onreadystatechange = function () {
+    if(request.readyState == XMLHttpRequest.DONE) {
+      if(request.response == 'Success') {
+        showMessage('Verification email sent');
+      } else {
+        showMessage(request.response);
+      }
+    }
+  }
 }
 
 function showMessage(message){
@@ -187,24 +205,29 @@ function validLogin(username, password, callback) {
   if(!password || !username) {
     callback('All field must be filled');
   }
-  // if(password.length<8) {
-  //   callback('All passwords are atleast 8 characters')
-  // }
+  if(password.length<8) {
+    callback('All passwords are atleast 8 characters')
+  }
   else {
     callback();
   }
 }
 
 function validRegister(username, password, password2, email, callback) {
+  var regex = /^[\w]*$/;
   if(!password || !username || !password2 || !email) {
     callback('All fields must be filled');
   }
-  // else if (password.length < 8) {
-    // callback('Password must be atleast 8 characters');
-  // }
+  else if (password.length < 8) {
+    callback('Password must be atleast 8 characters');
+  }
   else if(!(password === password2)) {
     callback('Passwords do not match');
-  } else {
+  }
+  else if(!(username.match(regex)) || !(password.match(regex))) {
+    callback('Username and password must be consist of only letters and numbers');
+  }
+  else {
     callback();
   }
 }

@@ -108,14 +108,13 @@ app.post('/reset', function (req, res) {
     if (user.length > 0) {
       const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
       crypto.randomBytes(48, function(err, buffer) {
-        var email = "elis.jones@outlook.com";
         var token = buffer.toString('hex');
         var now = new Date();
         var nextDay   = now.getDate() + 2;
         var tomorrow = new Date('2018-04-' + nextDay );
         var expiry   = tomorrow.toJSON();
-        sqljs.setReset(db, email, token, "date('" + expiry + "')", function () {
-          var url = 'http://localhost:8080/newpassword?token=' + token + '&email=' + email;
+        sqljs.setReset(db, req.body.email, token, "date('" + expiry + "')", function () {
+          var url = 'http://localhost:8080/newpassword?token=' + token + '&email=' + req.body.email;
           var mailOptions = {
             from: 'SeaMor <seamorwildlifetours@gmail.com>',
             to: req.body.email,
@@ -130,6 +129,66 @@ app.post('/reset', function (req, res) {
       });
     }
   });
+});
+
+app.post('/verify', function(req, res) {
+  const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
+  sqljs.findUserByEmail(db, req.body.email, function(user) {
+    if (user.length == 0) res.send('There is no account registered with this email');
+    if (user.length > 0) {
+      const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
+      crypto.randomBytes(48, function(err, buffer) {
+        var token = buffer.toString('hex');
+        sqljs.setVerificationToken(db, req.body.email, token, function () {
+          var url = 'http://localhost:8080/verify?token=' + token + '&email=' + req.body.email;
+          var mailOptions = {
+            from: 'SeaMor <seamorwildlifetours@gmail.com>',
+            to: req.body.email,
+            subject: 'Verify your SeaMor Account',
+            text: 'Verify your account by following this link ' + url
+          };
+          transporter.sendMail(mailOptions, function(err, info){
+            if (err) throw err;
+            if (!err) res.send('Success');
+          });
+        });
+      });
+    }
+  });
+});
+
+app.get('/verify', function(req,res) {
+
+  const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
+  console.log(req.query);
+  sqljs.checkVerfication(db, req.query.email, req.query.token, function(err) {
+    if(err) throw err;
+    if(!err) {
+
+    }
+  });
+  var html = `
+  <!DOCTYPE html>
+  <html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+      <meta name="author" content="Elis Jones and Sonny Peng "></meta>
+      <title> Form </title>
+      <script type="text/javascript" src="scripts/bundle.js"></script>
+      <link rel="stylesheet" href="./css/style.css" />
+      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+    </head>
+
+    <body>
+      <form class="login-form" id="reset-form">
+        <a class="login-a wide" id="reset-to-signin" href="#">Success</a>
+      </form>
+    </body>
+  </html>
+  `;
+  res.status(200);
+  res.type('.html');
+  res.send(html);
 });
 
 app.get('/newpassword', function(req, res) {
