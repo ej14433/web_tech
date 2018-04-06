@@ -40,12 +40,36 @@ var types, banned;
 app.use(bodyParser());
 
 // Guarding for exceptional errors
-app.get("//", function(req, res) {
-   res.sendFile(__dirname + '/public/index.html');
+/*
+Used for admin login
+
+app.all("/admin/*", requireLogin, function(req, res, next) {
+  next(); // if the middleware allowed us to get here,
+          // just move on to the next route handler
 });
 
+app.get("/admin/posts", function(req, res) {
+  // if we got here, the `app.all` call above has already
+  // ensured that the user is logged in
+});
+*/
+
 app.get("/:id", function(req, res) {
-   res.sendFile(__dirname + '/public/index.html');
+  var url = req.params.id;
+    //TODO: LOWER CASE URL
+  //URL can not contain //
+  if(!string.includes("//")){
+    if(string.endsWith("/")){     //make sure url ends with / or send redirect signal
+      if(fs.existsSync("./public" + url)){  // make sure such folder exist
+
+      }else(
+        //file not found code
+      )
+      //redirect to "url/"
+    }
+    //invalid url
+  }
+  res.sendFile(__dirname + '/public/index.html');
 });
 
 //load default
