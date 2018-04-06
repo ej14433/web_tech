@@ -5,6 +5,11 @@
   --white:     #E8E8E8;
 }
 
+* {
+  padding: 0;
+  margin: 0;
+}
+
 
 body {
   display: grid;
@@ -13,10 +18,10 @@ body {
   background: var(--off-white);
   padding: 0;
   margin: 0;
-  grid-template-columns: repeat(3, minmax(100px, 1fr));
+  grid-template-columns: repeat(3, 1fr));
   grid-template-rows: repeat(auto, 0.5fr));
   grid-gap: 2rem;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 body#contact-us {
@@ -36,7 +41,7 @@ header {
   position: relative;
   display: grid;
   background-color: var(--blue);
-  width: 100vw;
+  width: 100%;
   padding: 0;
   margin: 0;
   grid-column: 1/4;
@@ -123,6 +128,7 @@ a:hover {
 }
 
 section {
+  display: grid;
   color: var(--dark-blue);
   background-color: var(--off-white);
   padding: 1rem;
@@ -132,9 +138,6 @@ section {
   grid-column: span 1;
   transition-property: grid-column;
   transition-duration: 2s;
-  /*border-color: black;
-  border-width: medium;
-  border-style: solid;*/
 }
 
 
@@ -159,9 +162,11 @@ section a {
   border-width: 2px;
   border-color: var(--dark-blue);
   padding: 0.5rem 2rem;
+  margin: 1rem;
   width: 5rem;
   text-align: center;
-  margin: 2rem auto;
+  align-self: center;
+  justify-self: center;
 }
 
 .more {
@@ -248,9 +253,9 @@ form button {
 footer{
   height: 5rem;
   background-color: var(--dark-blue);
-  width: 100vw;
+  width: 100%;
   color: var(--off-white);
-  padding-left: 2rem;
+  padding: 2rem;
   grid-column: span 3;
   grid-row: span 1;
 }

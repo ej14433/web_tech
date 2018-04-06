@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta name="author" content="Elis Jones and Sonny Peng "></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title> Form </title>
     <script type="text/javascript" src="./scripts/bundle.js"></script>
     <link rel="stylesheet" href="./css/style.css" />
@@ -10,47 +11,82 @@
   </head>
 
     <body>
-      <form class="login-form tall" id="register-form">
-        <input class="login-input wide" id="register-username" type="text" name="username" placeholder="Username" autocomplete="username" required=true />
-        <input class="login-input" id="register-password" type="password" name="password" placeholder="Password" autocomplete="new-password" required=true />
-        <input class="login-input" id="register-password2" type="password" name="password2" placeholder="Confirm Password" autocomplete="new-password" required=true />
-        <input class="login-input wide" id="register-email" type="email" name="email" placeholder="Email" autocomplete="email" required=true />
-        <input class="login-button" id="register-button" type="button" value="Register" />
-        <a class="login-a wide" id="signin" href="#">Sign In</a>
-      </form>
-
-      <form class="login-form" id="signin-form">
-        <input class="login-input" id="username" type="text" name="username" placeholder="Username" autocomplete="username" required=true />
-        <input class="login-input" id="password" type="password" name="password" placeholder="Password" autocomplete="current-password" required=true />
-        <input class="login-button" id="login-button" type="button" value="Log In" />
-        <a class="login-a" id="lost" href="#">Lost your password?</a>
-        <a class="login-a" id="register" href="#">Register</a>
-      </form>
-
-      <form class="login-form" id="lost-form">
-        <input class="login-input wide" id="reset-email" type="text" name="email" placeholder="Email" autocomplete="email" required=true />
-        <input class="login-button" id="reset-password" type="button" value="Send Reset Email" />
-        <a class="login-a wide" id="lost-signin" href="#">Sign In</a>
-      </form>
-
-      <form class="login-form" id="booking-form" action="/book/try" method="post">
-        <input class="login-input" id="date-input" type="date" name="date" value="2018-01-01" required=true />
-        <input class="login-input" id="seats-input" type="text" name="seats" value="" placeholder="# of Seats" required=true />
-        <input class="login-button narrow" id="search" type="button" value="Search" />
-        <select class="form-select" id="tripList" name="">
-          <option value=""></option>
-        </select>
-        <input class="login-button" type="submit" value="Book Trip" />
-      </form>
-
-      <section class="message">
-        <p>Are you sure you want to book this trip?</p>
-        <input class="login-button" type="button" value="Confirm">
-      </section>
-
-      <section class="error-overlay" id="error">
-        <section class="error-message" id="error-message">
+      <header class="main-header">
+        <nav class="main-nav">
+          <ul class="main-ul">
+            <li class="main-li li-logo"><img class="main-logo" src="./img/logo.png" alt="" class="logo"></li>
+            <li class="main-li"> <a class="main-a" href="">Home</a></li>
+            <li class="main-li"><a class="main-a" href="">Wildlife</a></li>
+            <li class="main-li"><a class="main-a" href="">Boats</a></li>
+            <li class="main-li"><a class="main-a" href="">Contact Us</a></li>
+          </ul>
+        </nav>
+        <section class="video-wrap">
+          <video class="main-video" src="./video/boat_video.mp4" autoplay = "true" loop="true"></video>
         </section>
+        <form class="login-form tall" id="register-form">
+          <input class="login-input wide" id="register-username" type="text" name="username" placeholder="Username" autocomplete="username" required=true />
+          <input class="login-input" id="register-password" type="password" name="password" placeholder="Password" autocomplete="new-password" required=true />
+          <input class="login-input" id="register-password2" type="password" name="password2" placeholder="Confirm Password" autocomplete="new-password" required=true />
+          <input class="login-input wide" id="register-email" type="email" name="email" placeholder="Email" autocomplete="email" required=true />
+          <input class="login-button" id="register-button" type="button" value="Register" />
+          <a class="login-a wide" id="signin" href="#">Sign In</a>
+        </form>
+
+        <form class="login-form" id="signin-form">
+          <input class="login-input" id="username" type="text" name="username" placeholder="Username" autocomplete="username" required=true />
+          <input class="login-input" id="password" type="password" name="password" placeholder="Password" autocomplete="current-password" required=true />
+          <input class="login-button" id="login-button" type="button" value="Log In" />
+          <a class="login-a" id="lost" href="#">Lost your password?</a>
+          <a class="login-a" id="register" href="#">Register</a>
+        </form>
+
+        <form class="login-form" id="lost-form">
+          <input class="login-input wide" id="reset-email" type="text" name="email" placeholder="Email" autocomplete="email" required=true />
+          <input class="login-button" id="reset-password" type="button" value="Send Reset Email" />
+          <a class="login-a wide" id="lost-signin" href="#">Sign In</a>
+        </form>
+
+        <form class="login-form" id="booking-form" action="/book/try" method="post">
+          <input class="login-input" id="date-input" type="date" name="date" value="2018-01-01" required=true />
+          <input class="login-input" id="seats-input" type="text" name="seats" value="" placeholder="# of Seats" required=true />
+          <input class="login-button narrow" id="search" type="button" value="Search" />
+          <select class="form-select" id="tripList" name="">
+            <option value=""></option>
+          </select>
+          <input class="login-button" type="submit" value="Book Trip" />
+        </form>
+
+        <section class="message">
+          <p>Are you sure you want to book this trip?</p>
+          <input class="login-button" type="button" value="Confirm">
+        </section>
+
+        <section class="error-overlay" id="error">
+          <section class="error-message" id="error-message">
+          </section>
+        </section>
+      </header>
+
+      <section class="main-box">
+        <img src="./img/dolphin.png" alt="">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae autem quis, quas sit accusamus, suscipit, quisquam soluta nam nemo tenetur delectus quos quaerat aliquid placeat velit! Hic iusto iure incidunt obcaecati! Fugiat ipsa rerum ipsam quidem ad, vel, sit veniam.</p>
+        <a href="#">Read More</a>
       </section>
+      <section class="main-box">
+        <img src="./img/sea.png" alt="">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae autem quis, quas sit accusamus, suscipit, quisquam soluta nam nemo tenetur delectus quos quaerat aliquid placeat velit! Hic iusto iure incidunt obcaecati! Fugiat ipsa rerum ipsam quidem ad, vel, sit veniam.</p>
+        <a href="#">Read More</a>
+      </section>
+      <section class="main-box">
+        <img src="./img/islander.png" alt="">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae autem quis, quas sit accusamus, suscipit, quisquam soluta nam nemo tenetur delectus quos quaerat aliquid placeat velit! Hic iusto iure incidunt obcaecati! Fugiat ipsa rerum ipsam quidem ad, vel, sit veniam.</p>
+        <a href="#">Read More</a>
+      </section>
+
+      <footer>
+        <p>by Elis Jones, and Sonny Peng. Copyright 2018</p>
+      </footer>
+
     </body>
   </html>

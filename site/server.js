@@ -37,7 +37,7 @@ var types, banned;
 
 app.use(bodyParser());
 
-Guarding for exceptional errors
+// Guarding for exceptional errors
 app.get("//", function(req, res) {
    res.sendFile(__dirname + '/public/index.html');
 });
