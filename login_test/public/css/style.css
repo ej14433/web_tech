@@ -21,6 +21,12 @@ body {
   height: 100vh;
 }
 
+
+/*---------------------------------------------------------------*/
+
+
+
+
 /*----------------------HEADER---------------------------------  */
 
 .main-header {
@@ -53,7 +59,6 @@ body {
   display: inline;
   align-self: center;
   justify-self: center;
-  margin: 1rem;
 }
 
 .main-a {
@@ -71,7 +76,6 @@ body {
 
 .main-logo {
   width: 9rem;
-  margin-top: 1.5rem;
 }
 
 .video-wrap {
@@ -88,6 +92,9 @@ body {
   justify-self: center;
   min-width: 100%;
 }
+/*---------------------------------------------------------------*/
+
+
 
 /* ----------------------FORMS--------------------------------- */
 
@@ -113,7 +120,7 @@ body {
   grid-gap: 1rem;
   background-color: var(--off-white);
   padding: 1rem;
-  margin: 1rem;
+  margin: 0rem 1rem;
   border-radius: 0.5rem;
   max-width: 35rem;
   justify-self: center;
@@ -188,11 +195,13 @@ body {
 }
 
 .error-message {
-  background-color: rgba(1,1,1,0.5);
+  color: white;
+  background-color: rgba(1,1,1,0.8);
   padding: 4rem;
   justify-self: center;
   align-self: center;
   margin-top: -40vh;
+  z-index: 1;
 }
 
 .wide {
@@ -210,6 +219,10 @@ body {
 .invisible {
   display: none;
 }
+
+.blue {
+  background-color: var(--dark-blue);
+}
 /*-------------------------------------------------------------*/
 
 
@@ -220,6 +233,11 @@ body {
 .main-box {
   display: grid;
   margin: 1rem;
+  grid-gap: 1rem;
+
+
+  grid-template-columns: 1fr 1fr;
+  grid-column: span 3;
 }
 
 .main-box img {
@@ -236,6 +254,14 @@ body {
   padding: 0.5rem 1rem;
   margin: 1rem;
   justify-self: center;
+
+
+  grid-column: span 2;
+}
+
+.main-box a:hover {
+  color: lightgrey;
+  border-color: lightgrey;
 }
 
 /*---------------------------------------------------------------*/

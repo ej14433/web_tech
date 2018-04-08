@@ -135,6 +135,16 @@ function setVerificationToken(db, email, token, callback) {
   });
 }
 
+function makeBooking(db, userId, tripId, seats, callback) {
+  db.serialize(function() {
+    var query = "insert into bookings (userId, tripId, seats) values ( '" + userId+"', '"+tripId+"', '" +seats+"')"
+    db.run(query, function(err) {
+      if(err) throw err;
+      callback();
+    });
+  });
+}
+
 module.exports = {
   storeUserHash   : storeUserHash,
   findUser        : findUser,
@@ -145,5 +155,6 @@ module.exports = {
   checkToken      : checkToken,
   updatePassword  : updatePassword,
   setVerificationToken : setVerificationToken,
-  checkVerfication: checkVerfication
+  checkVerfication: checkVerfication,
+  makeBooking     : makeBooking
 }

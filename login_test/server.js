@@ -9,7 +9,6 @@ const nodemailer      = require('nodemailer');
 const saltRounds      = 10;
 var passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
 var session  = require("express-session"), bodyParser = require("body-parser");
-
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -22,9 +21,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  secret: 'verygoodsecret' ,
+  secret: 'verygoodsecret',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  rolling: true
 }));
 
 passport.use(new LocalStrategy(
@@ -57,12 +57,31 @@ app.post('/login', function (req, res) {
   passport.authenticate('local', function(err, user, info) {
     if(err) throw err;
     if(!user) return res.send('Incorrect credentials');
-    if(user) return res.send('Success');
+    if(user) {
+      req.login(user, function (err) {
+        if(err) throw err;
+      });
+      return res.send('Success');
+    }
   }) (req, res);
 });
 
+app.post('/login', passport.authenticate('local', { failureRedirect: '/',
+  function (req, res) {
+
+  }
+}));
+
 app.get('/', function(req, res) {
   res.sendFile(__dirname + './public/index.html')
+});
+
+app.get('/issignedin', function(req,res) {
+  if(req.session.passport) {
+    res.send('yes');
+  } else {
+    res.send('no');
+  }
 });
 
 app.get('/search/', function(req, res) {
@@ -245,5 +264,16 @@ app.post('/newpassword', function(req,res) {
       res.send(err);
     }
   });
-  // res.redirect('/');
+});
+
+app.get('/book', function(req,res) {
+  if(req.session.passport) {
+    const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
+    sqljs.makeBooking(db, req.session.passport.user ,req.query.tripId, req.query.seats, function(err) {
+      if(err) throw err;
+      res.send('Booking successful');
+    });
+  } else {
+    res.send('You must sign in');
+  }
 });
