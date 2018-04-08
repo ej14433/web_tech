@@ -15,17 +15,19 @@
 // list banned files (with upper case letters) on startup.
 'use strict'
 
-var port = 8080;
+var port = 80;
 var verbose = true;
 
 // Load the library modules, and define the global constants.
 // See http://en.wikipedia.org/wiki/List_of_HTTP_status_codes.
 // Start the server:
 
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 const path = require('path');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const isPortAvailable = require('is-port-available');
+var net = require('net');
 
 var http = require("http");
 var fs = require("fs");
@@ -38,22 +40,53 @@ var types, banned;
 app.use(bodyParser());
 
 // Guarding for exceptional errors
-app.get("//", function(req, res) {
-   res.sendFile(__dirname + '/public/index.html');
+/*
+Used for admin login
+
+app.all("/admin/*", requireLogin, function(req, res, next) {
+  next(); // if the middleware allowed us to get here,
+          // just move on to the next route handler
 });
+
+app.get("/admin/posts", function(req, res) {
+  // if we got here, the `app.all` call above has already
+  // ensured that the user is logged in
+});
+*/
 
 app.get("/:id", function(req, res) {
-   res.sendFile(__dirname + '/public/index.html');
-});
+  var url = req.params.id;
+    //TODO: LOWER CASE URL
+  //URL can not contain //
+  if(!string.includes("//")){
+    if(string.endsWith("/")){     //make sure url ends with / or send redirect signal
+      if(fs.existsSync("./public" + url)){  // make sure such folder exist
 
+      }else(
+        //file not found code
+      )
+      //redirect to "url/"
+    }
+    //invalid url
+  }
+  res.sendFile(__dirname + '/public/index.html');
+});
 
 //load default
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.listen(port, function () {
-    console.log('Dev app listening on port: ' + port);
+isPortAvailable(port).then( status =>{
+    if(status){
+      app.listen(port, function(){
+        console.log('Listening on port ' + port); //Listening on port 8888
+      });
+    }else{
+      port = 8080;
+      app.listen(port, function(){
+        console.log('Listening on port ' + port); //Listening on port 8888
+      });
+    }
 });
-
 
 //
 // //node.js style
