@@ -1,47 +1,51 @@
 (function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
 'use strict';
 const validate = require('./validation.js');
-const views    = require('./views.js');
-const req      = require('./request.js');
-const user     = require('./user.js');
-const message  = require('./message.js');
-const searchjs = require('./search.js');
+const views    = require('./views.js'     );
+const req      = require('./request.js'   );
+const user     = require('./user.js'      );
+const message  = require('./message.js'   );
+const searchjs = require('./search.js'    );
 
 window.addEventListener('load', function (e) {
 
-  var signInForm = document.getElementById('signin-form');
-  var bookingForm = document.getElementById('booking-form');
   var request = req.get('/issignedin');
   request.onreadystatechange = function() {
     if(request.readyState == XMLHttpRequest.DONE) {
       if(request.response == 'yes') {
-        signInForm.style.display = 'none';
-        bookingForm.style.display = 'grid';
+        views.signedIn();
       }
     }
   }
 
-  var register        = document.getElementById('register');
-  var search          = document.getElementById('search');
-  var signin          = document.getElementById('signin');
-  var registerButton  = document.getElementById('register-button');
-  var loginButton     = document.getElementById('login-button');
-  var lost            = document.getElementById('lost');
-  var lostSignIn      = document.getElementById('lost-signin');
-  var reset           = document.getElementById('reset-password');
+  var bookings        = document.getElementById('bookings'              );
+
+  var register        = document.getElementById('register'              );
+  var search          = document.getElementById('search'                );
+  var signin          = document.getElementById('signin'                );
+  var registerButton  = document.getElementById('register-button'       );
+  var loginButton     = document.getElementById('login-button'          );
+  var lost            = document.getElementById('lost'                  );
+  var lostSignIn      = document.getElementById('lost-signin'           );
+  var reset           = document.getElementById('reset-password'        );
   var finishReset     = document.getElementById('reset-account-password');
-  var bookButton      = document.getElementById('book-trip')
+  var bookButton      = document.getElementById('book-trip'             );
+  var myBookings      = document.getElementById('my-bookings'           );
+
+  if(bookings) {
+    views.populateBookings();
+  }
 
   if(search) {
-    register.addEventListener(      'click', views.register);
-    loginButton.addEventListener(   'click', user.loginUser);
-    signin.addEventListener(        'click', views.signin);
+    register.addEventListener(      'click', views.register      );
+    loginButton.addEventListener(   'click', user.loginUser      );
+    signin.addEventListener(        'click', views.signin        );
     registerButton.addEventListener('click', user.registerNewUser);
-    lost.addEventListener(          'click', views.lost);
-    lostSignIn.addEventListener(    'click', views.signin);
-    search.addEventListener(        'click', searchjs.available);
-    reset.addEventListener(         'click', user.resetPassword);
-    bookButton.addEventListener(    'click', searchjs.create);
+    lost.addEventListener(          'click', views.lost          );
+    lostSignIn.addEventListener(    'click', views.signin        );
+    search.addEventListener(        'click', searchjs.available  );
+    reset.addEventListener(         'click', user.resetPassword  );
+    bookButton.addEventListener(    'click', searchjs.create     );
   }
   if(finishReset) {
     finishReset.addEventListener(   'click', user.newPassword);
@@ -50,11 +54,6 @@ window.addEventListener('load', function (e) {
 
 },{"./message.js":2,"./request.js":3,"./search.js":4,"./user.js":5,"./validation.js":6,"./views.js":7}],2:[function(require,module,exports){
 'use strict';
-const validate = require('./validation.js');
-const views    = require('./views.js');
-const req      = require('./request.js');
-const user = require('./user.js');
-
 function showMessage(message){
   document.getElementById('error-message').innerHTML = message;
   var error = document.getElementById('error');
@@ -68,7 +67,7 @@ module.exports = {
   show : showMessage
 };
 
-},{"./request.js":3,"./user.js":5,"./validation.js":6,"./views.js":7}],3:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 'use strict';
 
 function prepGet(url) {
@@ -201,8 +200,7 @@ function loginUser() {
         if(request.readyState == XMLHttpRequest.DONE) {
           message.show(request.response);
           if(request.response == 'Success') {
-            console.log(request);
-            views.booking();
+            views.signedIn();
           }
         }
       }
@@ -270,9 +268,9 @@ function validLogin(username, password, callback) {
   if(!password || !username) {
     callback('All field must be filled');
   }
-  if(password.length<8) {
-    callback('All passwords are atleast 8 characters')
-  }
+  // if(password.length<8) {
+    // callback('All passwords are atleast 8 characters')
+  // }
   else {
     callback();
   }
@@ -283,9 +281,9 @@ function validRegister(username, password, password2, email, callback) {
   if(!password || !username || !password2 || !email) {
     callback('All fields must be filled');
   }
-  else if (password.length < 8) {
-    callback('Password must be atleast 8 characters');
-  }
+  // else if (password.length < 8) {
+    // callback('Password must be atleast 8 characters');
+  // }
   else if(!(password === password2)) {
     callback('Passwords do not match');
   }
@@ -312,6 +310,8 @@ module.exports = {
 
 },{}],7:[function(require,module,exports){
 'use strict';
+const req = require('./request.js');
+const message = require('./message.js');
 
 function signInView() {
   var forms = document.getElementsByClassName('login-form');
@@ -343,11 +343,61 @@ function lostView() {
   lostForm.style.display = 'grid';
 }
 
+function signedInView() {
+  var bookingForm = document.getElementById('booking-form');
+  var signInForm = document.getElementById('signin-form');
+  var myBookings = document.getElementById('my-bookings');
+
+  if(signInForm) {
+    signInForm.style.display  = 'none';
+    bookingForm.style.display = 'grid';
+  }
+  myBookings.style.display  = 'grid';
+}
+
+function populateBookings() {
+  var bookingsElement = document.getElementById('bookings');
+  var request = req.get('/bookings');
+  request.onreadystatechange = function () {
+    if(request.readyState == XMLHttpRequest.DONE) {
+      var bookings = JSON.parse(request.response);
+      if(bookings.length == 0) {
+        message.show('You have no bookings');
+      } else {
+        for(var i = 0; i < bookings.length; i++) {
+          var parsedBooking = JSON.parse(bookings[i]);
+          var bookingNumber = parsedBooking.bookingId;
+          if(parsedBooking.boatId == 1) {
+            var boat = 'Islander'
+          } else if (parsedBooking.boatId == 2) {
+            var boat = 'Viking'
+          }
+          var time = parsedBooking.time;
+          var date = parsedBooking.date;
+          var passengers = parsedBooking.seats;
+          var template = `
+          <section class="booking">
+            <div class="booking-number"> ${bookingNumber} </div>
+            <div class="content boat">${boat}</div>
+            <div class="content time">${time}</div>
+            <div class="content date">${date}</div>
+            <div class="content seats">${passengers}</div>
+          </section>
+          `
+          bookingsElement.innerHTML += template;
+        }
+      }
+    }
+  }
+}
+
 module.exports = {
   lost : lostView,
   booking : bookingView,
   signin : signInView,
-  register : registerView
+  register : registerView,
+  signedIn : signedInView,
+  populateBookings : populateBookings
 }
 
-},{}]},{},[1]);
+},{"./message.js":2,"./request.js":3}]},{},[1]);

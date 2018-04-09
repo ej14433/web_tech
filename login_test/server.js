@@ -24,7 +24,8 @@ app.use(session({
   secret: 'verygoodsecret',
   resave: false,
   saveUninitialized: false,
-  rolling: true
+  rolling: true,
+  cookie: { maxAge: 60*60*1000 },
 }));
 
 passport.use(new LocalStrategy(
@@ -275,5 +276,17 @@ app.get('/book', function(req,res) {
     });
   } else {
     res.send('You must sign in');
+  }
+});
+
+app.get('/bookings', function(req,res) {
+  if(req.session.passport) {
+    const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
+    sqljs.getBookingsByUserId(db, req.session.passport.user, function(err, rows) {
+      if (err) throw err;
+      res.send(rows);
+    });
+  } else {
+    console.log('Not logged in');
   }
 });

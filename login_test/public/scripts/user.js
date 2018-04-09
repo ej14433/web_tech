@@ -52,8 +52,7 @@ function loginUser() {
         if(request.readyState == XMLHttpRequest.DONE) {
           message.show(request.response);
           if(request.response == 'Success') {
-            console.log(request);
-            views.booking();
+            views.signedIn();
           }
         }
       }

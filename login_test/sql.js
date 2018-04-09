@@ -140,10 +140,45 @@ function makeBooking(db, userId, tripId, seats, callback) {
     var query = "insert into bookings (userId, tripId, seats) values ( '" + userId+"', '"+tripId+"', '" +seats+"')"
     db.run(query, function(err) {
       if(err) throw err;
-      callback();
+      var query = "update trips set seatsAvail = seatsAvail-"+seats+" where tripId = '"+tripId+"'";
+      db.run(query, function(err) {
+        if(err) throw err;
+        callback();
+        db.close();
+      });
     });
   });
 }
+
+function getBookingsByUserId(db, userId, callback) {
+  var allInfo = [];
+  db.serialize(function() {
+    var query = "select * from bookings where userId = "+userId;
+    db.all(query, function(err, bookings) {
+      if (err) throw err;
+      var i = 0;
+      bookings.forEach(function(booking){
+        var bookingId = booking.bookingId;
+        var seats = booking.seats;
+        query = "select * from trips where tripId = "+booking.tripId;
+        db.all(query, function(err, trips) {
+          if(err) throw err;
+          var boatId = trips[0].boatId;
+          var date = trips[0].date;
+          var time = trips[0].time;
+          var template =
+          `{ "bookingId" : "${bookingId}", "boatId" : "${boatId}", "date" : "${date}", "time" : "${time}", "seats" : "${seats}" }`;
+          allInfo.push(template);
+          if(allInfo.length == bookings.length) {
+            callback(null, allInfo);
+          }
+        });
+      });
+      db.close();
+    });
+  });
+}
+
 
 module.exports = {
   storeUserHash   : storeUserHash,
@@ -156,5 +191,6 @@ module.exports = {
   updatePassword  : updatePassword,
   setVerificationToken : setVerificationToken,
   checkVerfication: checkVerfication,
-  makeBooking     : makeBooking
+  makeBooking     : makeBooking,
+  getBookingsByUserId : getBookingsByUserId
 }

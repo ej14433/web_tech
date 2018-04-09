@@ -15,10 +15,15 @@
 body {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto 1fr 1fr;
   background-color: var(--off-white);
   color: var(--dark-blue);
   font-family: 'Roboto',sans-serif;
   height: 100vh;
+}
+
+.non-main-body {
+
 }
 
 
@@ -37,6 +42,14 @@ body {
   background-color: var(--blue);
 }
 
+.non-main-header {
+  display: grid;
+  grid-column: span 3;
+  grid-template-rows: auto;
+  background-color: var(--blue);
+  height: 12rem;
+}
+
 .main-nav {
   min-height: 10rem;
   display: grid;
@@ -48,10 +61,11 @@ body {
   display: grid;
   list-style: none;
   text-align: center;
-  grid-template-columns:2fr repeat(5, 1fr);
+  grid-template-columns:repeat(7, 1fr);
   grid-gap: 2rem;
   padding: 0;
   margin: 0.5rem;
+  justify-content: center;
 }
 
 .main-li {
@@ -282,6 +296,50 @@ footer {
 footer p {
   margin: 3rem;
 }
+
+/*------------------------------------------------------------ */
+
+
+
+/*----------------------BOOKINGS--------------------------------- */
+
+#bookings {
+  grid-column: span 3;
+  display: grid;
+}
+
+.booking {
+  border-radius: 0.5rem;
+  box-shadow: -1px -1px 31px -4px rgba(0,0,0,0.75);
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 1rem;
+  height: 6rem;
+
+  background-color: var(--white);
+}
+
+.booking .content {
+  margin-left: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.booking .boat {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.booking-number {
+  grid-column: span 2;
+  background-color: var(--blue);
+  color: var(--off-white);
+  padding: 0.25rem;
+}
+
+
+
+
 
 
 

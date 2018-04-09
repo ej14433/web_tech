@@ -1,9 +1,4 @@
 'use strict';
-const validate = require('./validation.js');
-const views    = require('./views.js');
-const req      = require('./request.js');
-const user = require('./user.js');
-
 function showMessage(message){
   document.getElementById('error-message').innerHTML = message;
   var error = document.getElementById('error');
