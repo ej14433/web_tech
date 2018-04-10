@@ -6,6 +6,7 @@ const path            = require('path');
 const bcrypt          = require('bcrypt');
 const crypto          = require('crypto');
 const nodemailer      = require('nodemailer');
+const qr              = require("qr-image");
 const saltRounds      = 10;
 var passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
 var session  = require("express-session"), bodyParser = require("body-parser");
@@ -16,6 +17,7 @@ var transporter = nodemailer.createTransport({
     pass: 'C@ms32500'
   }
 });
+var png_string = qr.imageSync('SEAMOR130820', { type: 'png' });
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());

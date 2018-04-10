@@ -352,7 +352,7 @@ function signedInView() {
     signInForm.style.display  = 'none';
     bookingForm.style.display = 'grid';
   }
-  myBookings.style.display  = 'grid';
+  // myBookings.style.display  = 'grid';
 }
 
 function populateBookings() {
@@ -377,11 +377,12 @@ function populateBookings() {
           var passengers = parsedBooking.seats;
           var template = `
           <section class="booking">
-            <div class="booking-number"> ${bookingNumber} </div>
+            <div class="booking-number"> Booking Number: ${bookingNumber} </div>
             <div class="content boat">${boat}</div>
-            <div class="content time">${time}</div>
-            <div class="content date">${date}</div>
-            <div class="content seats">${passengers}</div>
+            <div class="content time">Time: ${time}</div>
+            <div class="content date">Date: ${date}</div>
+            <div class="content seats">Seats: ${passengers}</div>
+            <div class="content info wide">All tickets are available for refund or cancellation up to 24 hours prior to departure, please contact us via phone or email</div>
           </section>
           `
           bookingsElement.innerHTML += template;

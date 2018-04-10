@@ -22,9 +22,6 @@ body {
   height: 100vh;
 }
 
-.non-main-body {
-
-}
 
 
 /*---------------------------------------------------------------*/
@@ -47,11 +44,9 @@ body {
   grid-column: span 3;
   grid-template-rows: auto;
   background-color: var(--blue);
-  height: 12rem;
 }
 
 .main-nav {
-  min-height: 10rem;
   display: grid;
   justify-content: center;
   background-color: var(--dark-blue);
@@ -61,7 +56,7 @@ body {
   display: grid;
   list-style: none;
   text-align: center;
-  grid-template-columns:repeat(7, 1fr);
+  grid-template-columns:repeat(6, 1fr);
   grid-gap: 2rem;
   padding: 0;
   margin: 0.5rem;
@@ -70,14 +65,18 @@ body {
 
 .main-li {
   display: grid;
-  display: inline;
   align-self: center;
   justify-self: center;
+  padding-: 0.2rem
 }
 
 .main-a {
   text-decoration: none;
-  color: white;
+  color: var(--white);
+}
+
+.current {
+  color: grey;
 }
 
 .main-a:hover {
@@ -86,6 +85,7 @@ body {
 
 .li-logo {
   grid-column: span 2;
+  padding-top: 1.5rem;
 }
 
 .main-logo {
@@ -97,9 +97,6 @@ body {
   overflow: hidden;
   grid-row: 2;
   grid-column: 1;
-  /* border-color: black;
-  border-width: thick;
-  border-style: solid; */
 }
 
 .main-video {
@@ -132,7 +129,7 @@ body {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   grid-gap: 1rem;
-  background-color: var(--off-white);
+  background-color: var(--white);
   padding: 1rem;
   margin: 0rem 1rem;
   border-radius: 0.5rem;
@@ -247,11 +244,17 @@ body {
 .main-box {
   display: grid;
   margin: 1rem;
+  padding: 1rem;
   grid-gap: 1rem;
+  border-radius: 0.5rem;
+  /* box-shadow: -1px -1px 31px -4px rgba(0,0,0,0.75); */
 
 
-  grid-template-columns: 1fr 1fr;
-  grid-column: span 3;
+  grid-template-columns: 1fr;
+  /* grid-column: span 3; */
+
+  background-color: var(--white);
+
 }
 
 .main-box img {
@@ -262,20 +265,13 @@ body {
 .main-box a {
   text-decoration: none;
   color: var(--dark-blue);
-  border-color: var(--dark-blue);
-  border-width: medium;
-  border-style: solid;
   padding: 0.5rem 1rem;
   margin: 1rem;
   justify-self: center;
-
-
-  grid-column: span 2;
 }
 
 .main-box a:hover {
   color: lightgrey;
-  border-color: lightgrey;
 }
 
 /*---------------------------------------------------------------*/
@@ -315,9 +311,12 @@ footer p {
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin: 1rem;
-  height: 6rem;
+  max-width: 30rem;
+  height: 9rem;
+  justify-self: center;
 
   background-color: var(--white);
+  overflow: hidden;
 }
 
 .booking .content {
@@ -337,6 +336,10 @@ footer p {
   padding: 0.25rem;
 }
 
+.info {
+  font-size: 0.75rem;
+}
+
 
 
 
@@ -350,10 +353,15 @@ footer p {
 @media(max-width: 700px) {
 
   .main-ul {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .li-logo {
+    grid-column: span 4;
   }
 
   .main-box {
     grid-column: span 3;
   }
+
 }
