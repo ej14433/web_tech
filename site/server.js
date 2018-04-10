@@ -36,8 +36,14 @@ var types, banned;
 
 
 //express style
+app.set('views', path.join(__dirname, '/public'));
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+
 
 app.use(bodyParser());
+
+app.use(express.static(path.join(__dirname, '/public')));
 
 // Guarding for exceptional errors
 /*
@@ -54,26 +60,25 @@ app.get("/admin/posts", function(req, res) {
 });
 */
 
-app.get("/:id", function(req, res) {
+app.get("/:id", function(req, res, next) {
   var url = req.params.id;
-    //TODO: LOWER CASE URL
-  //URL can not contain //
-  if(!string.includes("//")){
-    if(string.endsWith("/")){     //make sure url ends with / or send redirect signal
-      if(fs.existsSync("./public" + url)){  // make sure such folder exist
-
-      }else(
+  //TODO: LOWER CASE URL
+  // URL can not contain //
+  if(!url.includes("//")){
+    if(!url.endsWith("/")){     //make sure url ends with / or send redirect signal
+      if(fs.existsSync(url + "/")){  // make sure such folder exist
+        return res.redirect(302, url + "/");
+      }else{
         //file not found code
-      )
+      }
       //redirect to "url/"
     }
     //invalid url
   }
-  res.sendFile(__dirname + '/public/index.html');
+  console.log("hi");
+  // res.render("wildlife.html");
 });
 
-//load default
-app.use(express.static(path.join(__dirname, 'public')));
 
 isPortAvailable(port).then( status =>{
     if(status){
