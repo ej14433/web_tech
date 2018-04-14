@@ -18,3 +18,6 @@ https://codepen.io/amethystlei/pen/YXpoWM?page=1
 
 Tutorial for Express js with server and database related:
 https://www.youtube.com/watch?v=gnsO8-xJ8rs&t=1613s
+
+Self signed certificated:
+https://www.kevinleary.net/self-signed-trusted-certificates-node-js-express-js/
