@@ -77,6 +77,7 @@ app.get("/:id", function(req, res, next) {
       if(fs.existsSync(url + "/")){  // make sure such folder exist
         return res.redirect(url + "/", 302);
       }else if(fs.existsSync(url + ".html")){ //if no folder, try .html
+        res.setHeader('content-type', 'text/html; charset=utf-8');
         return res.render(req.params.id);
       }else{
         next();
