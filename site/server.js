@@ -36,14 +36,22 @@ var types, banned;
 
 
 //express style
-app.set('views', path.join(__dirname, '/public'));
+app.set('views', path.join(__dirname, 'public'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 
 app.use(bodyParser());
 
-app.use(express.static(path.join(__dirname, '/public')));
+var checkdoubleslash = function(req, res, next){
+  if (req.url.includes("//")){
+    return res.send('URL should not contain string //', 400)
+  }
+  next();
+}
+
+app.use(checkdoubleslash, express.static(path.join(__dirname, '/public')));
+
 
 // Guarding for exceptional errors
 /*
@@ -61,24 +69,44 @@ app.get("/admin/posts", function(req, res) {
 */
 
 app.get("/:id", function(req, res, next) {
-  var url = req.params.id;
+  var url = "./public/" + req.params.id;
   //TODO: LOWER CASE URL
   // URL can not contain //
   if(!url.includes("//")){
     if(!url.endsWith("/")){     //make sure url ends with / or send redirect signal
       if(fs.existsSync(url + "/")){  // make sure such folder exist
-        return res.redirect(302, url + "/");
+        return res.redirect(url + "/", 302);
+      }else if(fs.existsSync(url + ".html")){ //if no folder, try .html
+        return res.render(req.params.id);
       }else{
-        //file not found code
+        next();
       }
-      //redirect to "url/"
+    }else {
+      next();
     }
     //invalid url
+  }else{
+    return res.send('URL should not contain string //', 400)
   }
-  console.log("hi");
-  // res.render("wildlife.html");
+  next();
 });
 
+// app.get("/:id/", function(req, res, next) {
+//   console.log("?")
+//   var url = "./public/" + req.params.id;
+//   if(fs.existsSync(url + "/index.html")){
+//             console.log("inside render");
+//     res.render(req.params.id + "/index.html");
+//   }else{
+//     console.log("inside next")
+//     next();
+//   }
+// });
+
+
+app.get("*", function(req, res, next) {
+  res.send('Page not found', 404)
+});
 
 isPortAvailable(port).then( status =>{
     if(status){
