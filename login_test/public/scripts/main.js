@@ -18,7 +18,6 @@ window.addEventListener('load', function (e) {
   }
 
   var bookings        = document.getElementById('bookings'              );
-
   var register        = document.getElementById('register'              );
   var search          = document.getElementById('search'                );
   var signin          = document.getElementById('signin'                );
@@ -30,6 +29,7 @@ window.addEventListener('load', function (e) {
   var finishReset     = document.getElementById('reset-account-password');
   var bookButton      = document.getElementById('book-trip'             );
   var myBookings      = document.getElementById('my-bookings'           );
+  var readMores       = document.querySelectorAll('.read-more-button'   );
 
   if(bookings) {
     views.populateBookings();
@@ -45,6 +45,7 @@ window.addEventListener('load', function (e) {
     search.addEventListener(        'click', searchjs.available  );
     reset.addEventListener(         'click', user.resetPassword  );
     bookButton.addEventListener(    'click', searchjs.create     );
+    readMores.forEach(readMore => readMore.addEventListener('click', views.readMore));
   }
   if(finishReset) {
     finishReset.addEventListener(   'click', user.newPassword);

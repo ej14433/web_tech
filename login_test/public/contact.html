@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta name="author" content="Elis Jones and Sonny Peng "></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>SeaMor</title>
+    <script type="text/javascript" src="./scripts/bundle.js"></script>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+  </head>
+  <body class="width-2">
+    <header class="non-main-header">
+      <nav class="main-nav">
+        <ul class="main-ul" id="main-ul">
+          <li class="main-li li-logo"><a href="index.html"><img class="main-logo" src="./img/logo.png" alt="" href="index.html" class="logo"></a></li>
+          <li class="main-li"><a class="main-a" href="wildlife.html">Wildlife</a></li>
+          <li class="main-li"><a class="main-a" href="boats.html">Boats</a></li>
+          <li class="main-li"><a class="main-a current" href="contact.html">Contact Us</a></li>
+          <li class="main-li" id="my-bookings"><a class="main-a" href="bookings.html">My Bookings</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="main-box">
+      <h3>Where to find us</h3>
+      <div id="map">
+        <script src="./scripts/map.js"></script>
+        <script
+        async="1" defer="1" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDX_ZX2IIn784c1cEECTEBjnkZUi7pB5F0&amp;callback=initMap">
+        </script>
+      </div>
+    </section>
+
+    <form action="" class="main-box span-3 taller">
+      <input class="login-input" type="text" placeholder="First Name">
+      <input type="text" placeholder="Last Name" class="login-input">
+      <input type="text" class="login-input wide" placeholder="Email">
+      <textarea class="comment-area" name="comment" rows="8" cols="80"></textarea>
+      <input type="button" class="login-button" value="Submit Review">
+    </form>
+  </body>
+  <footer>
+    <p>by Elis Jones, and Sonny Peng. Copyright 2018</p>
+  </footer>
+</html>
