@@ -43,15 +43,18 @@ app.set('view engine', 'html');
 
 app.use(bodyParser());
 
-var checkdoubleslash = function(req, res, next){
+var checkURL = function(req, res, next){
   console.log("using static");
   if (req.url.includes("//")){
     return res.send('URL should not contain string //', 400)
   }
+  if (req.url != req.url.toLowerCase()){
+    return res.send('URL should not contain uppercase', 400)
+  }
   next();
 }
 
-app.use(checkdoubleslash, express.static(path.join(__dirname, '/public')));
+app.use(checkURL, express.static(path.join(__dirname, '/public')));
 
 // Guarding for exceptional errors
 /*
@@ -91,7 +94,6 @@ app.get("/:id", function(req, res, next) {
 });
 
 
-
 // app.get("/:id/", function(req, res, next) {
 //   console.log("?")
 //   var url = "./public/" + req.params.id;
@@ -105,6 +107,7 @@ app.get("/:id", function(req, res, next) {
 // });
 
 app.get("*", function(req, res, next) {
+  console.log("something 404");
   res.send('Page not found', 404)
 });
 
