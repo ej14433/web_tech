@@ -40,13 +40,11 @@ var checkURL = function(req, res, next){
   if (req.url.includes("//")){
     return res.send('URL should not contain string //', 400)
   }
-  if (req.url != req.url.toLowerCase()){
-    return res.send('URL should not contain uppercase', 400)
-  }
   next();
 }
 
 app.use(checkURL, express.static(path.join(__dirname, '/public')));
+
 
 
 app.use(session({
@@ -102,27 +100,7 @@ app.post('/login', passport.authenticate('local', { failureRedirect: '/',
   }
 }));
 
-app.get("/:id", function(req, res, next) {
-  var url = "./public" + req.url;
-  //TODO: LOWER CASE URL
-  // URL can not contain //
-  console.log(url +".html");
-    if(!url.endsWith("/")){     //make sure url ends with / or send redirect signal
-      if(fs.existsSync(url + "/")){  // make sure such folder exist
-        console.log("redirect")
-        return res.redirect(req.url, 302);
-      }else if(fs.existsSync(url + ".html")){ //if no folder, try .html
-        res.setHeader('content-type', 'text/html; charset=utf-8');
-        console.log("rendering")
-        return res.render(req.params.id);
-      }else{
-        next();
-      }
-    }else if (fs.existsSync(url + "/index.html")){
-      return res.render(req.params.id);
-    }
-  next();
-});
+
 
 app.get('/issignedin', function(req,res) {
   if(req.session.passport) {
@@ -343,6 +321,29 @@ app.get('/bookings', function(req,res) {
       res.send(rows);
     });
   }
+});
+
+
+app.get("/:id", function(req, res, next) {
+  var url = "./public" + req.url;
+  //TODO: LOWER CASE URL
+  // URL can not contain //
+  console.log("hi");
+    if(!url.endsWith("/")){     //make sure url ends with / or send redirect signal
+      if(fs.existsSync(url + "/")){  // make sure such folder exist
+        console.log("redirect")
+        return res.redirect(req.url, 302);
+      }else if(fs.existsSync(url + ".html")){ //if no folder, try .html
+        res.setHeader('content-type', 'text/html; charset=utf-8');
+        console.log("rendering")
+        return res.render(req.params.id);
+      }else{
+        next();
+      }
+    }else if (fs.existsSync(url + "/index.html")){
+      return res.render(req.params.id);
+    }
+  next();
 });
 
 app.get("*", function(req, res, next) {
