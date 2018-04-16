@@ -51,7 +51,7 @@ var checkdoubleslash = function(req, res, next){
   next();
 }
 
-
+app.use(checkdoubleslash, express.static(path.join(__dirname, '/public')));
 
 // Guarding for exceptional errors
 /*
@@ -91,7 +91,7 @@ app.get("/:id", function(req, res, next) {
 });
 
 
-app.use(checkdoubleslash, express.static(path.join(__dirname, '/public')));
+
 // app.get("/:id/", function(req, res, next) {
 //   console.log("?")
 //   var url = "./public/" + req.params.id;
@@ -103,7 +103,6 @@ app.use(checkdoubleslash, express.static(path.join(__dirname, '/public')));
 //     next();
 //   }
 // });
-
 
 app.get("*", function(req, res, next) {
   res.send('Page not found', 404)
