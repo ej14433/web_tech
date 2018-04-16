@@ -1,4 +1,4 @@
-(function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 'use strict';
 const validate = require('./validation.js');
 const views    = require('./views.js'     );
@@ -398,12 +398,19 @@ function readMore(e) {
   if(!(span.style.display) || span.style.display == 'none') {
       span.style.display = 'inline';
       e.target.innerHTML = 'Read Less';
-      e.target.parentElement.gridColumn = 'span 2';
+      e.target.parentElement.style.gridColumn = 'span 2';
+      var src = e.target.parentElement.firstElementChild.src;
+      var splitted = src.split('.');
+      splitted = splitted[0] + '_orig.jpg';
+      e.target.parentElement.firstElementChild.src = splitted;
   } else {
     e.target.previousElementSibling.firstElementChild.style.display = 'none';
     e.target.innerHTML = 'Read More';
-    console.dir(e.target);
-    e.target.parentElement.gridColumn = 'span 1';
+    e.target.parentElement.style.gridColumn = 'span 1';
+    var src = e.target.parentElement.firstElementChild.src;
+    var splitted = src.split('_');
+    splitted = splitted[0] + '.png';
+    e.target.parentElement.firstElementChild.src = splitted;
   }
 }
 

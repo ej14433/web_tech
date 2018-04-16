@@ -8,8 +8,11 @@ const crypto          = require('crypto');
 const nodemailer      = require('nodemailer');
 const qr              = require("qr-image");
 const saltRounds      = 10;
-var passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
-var session  = require("express-session"), bodyParser = require("body-parser");
+const passport        = require('passport');
+const LocalStrategy   = require('passport-local').Strategy;
+const session         = require("express-session");
+const bodyParser      = require("body-parser");
+
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -147,7 +150,7 @@ app.post('/reset', function (req, res) {
             if (err) res.send(err);
             if (!err) res.send('Email sent');
           });
-        });
+        });ts
       });
     }
   });
