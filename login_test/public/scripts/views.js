@@ -86,13 +86,19 @@ function readMore(e) {
   if(!(span.style.display) || span.style.display == 'none') {
       span.style.display = 'inline';
       e.target.innerHTML = 'Read Less';
-      e.target.parentElement.gridColumn = 'span 2';
-      console.log()
+      e.target.parentElement.style.gridColumn = 'span 2';
+      var src = e.target.parentElement.firstElementChild.src;
+      var splitted = src.split('.');
+      splitted = splitted[0] + '_orig.jpg';
+      e.target.parentElement.firstElementChild.src = splitted;
   } else {
     e.target.previousElementSibling.firstElementChild.style.display = 'none';
     e.target.innerHTML = 'Read More';
-    console.dir(e.target);
-    e.target.parentElement.gridColumn = 'span 1';
+    e.target.parentElement.style.gridColumn = 'span 1';
+    var src = e.target.parentElement.firstElementChild.src;
+    var splitted = src.split('_');
+    splitted = splitted[0] + '.png';
+    e.target.parentElement.firstElementChild.src = splitted;
   }
 }
 

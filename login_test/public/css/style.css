@@ -266,6 +266,7 @@ body {
   grid-template-columns: 1fr;
   background-color: var(--white);
   transition: .5s;
+  grid-column: span 1;
 }
 
 .main-box img {
