@@ -44,13 +44,13 @@ app.set('view engine', 'html');
 app.use(bodyParser());
 
 var checkdoubleslash = function(req, res, next){
+  console.log("using static");
   if (req.url.includes("//")){
     return res.send('URL should not contain string //', 400)
   }
   next();
 }
 
-app.use(checkdoubleslash, express.static(path.join(__dirname, '/public')));
 
 
 // Guarding for exceptional errors
@@ -69,29 +69,29 @@ app.get("/admin/posts", function(req, res) {
 */
 
 app.get("/:id", function(req, res, next) {
-  var url = "./public/" + req.params.id;
+  var url = "./public" + req.url;
   //TODO: LOWER CASE URL
   // URL can not contain //
-  if(!url.includes("//")){
+  console.log(url +".html");
     if(!url.endsWith("/")){     //make sure url ends with / or send redirect signal
       if(fs.existsSync(url + "/")){  // make sure such folder exist
-        return res.redirect(url + "/", 302);
+        console.log("redirect")
+        return res.redirect(req.url, 302);
       }else if(fs.existsSync(url + ".html")){ //if no folder, try .html
         res.setHeader('content-type', 'text/html; charset=utf-8');
+        console.log("rendering")
         return res.render(req.params.id);
       }else{
         next();
       }
-    }else {
-      next();
+    }else if (fs.existsSync(url + "/index.html")){
+      return res.render(req.params.id);
     }
-    //invalid url
-  }else{
-    return res.send('URL should not contain string //', 400)
-  }
   next();
 });
 
+
+app.use(checkdoubleslash, express.static(path.join(__dirname, '/public')));
 // app.get("/:id/", function(req, res, next) {
 //   console.log("?")
 //   var url = "./public/" + req.params.id;
