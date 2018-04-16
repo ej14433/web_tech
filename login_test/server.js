@@ -288,7 +288,5 @@ app.get('/bookings', function(req,res) {
       if (err) throw err;
       res.send(rows);
     });
-  } else {
-    console.log('Not logged in');
   }
 });

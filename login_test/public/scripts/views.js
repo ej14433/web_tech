@@ -81,11 +81,27 @@ function populateBookings() {
   }
 }
 
+function readMore(e) {
+  var span = e.target.previousElementSibling.firstElementChild;
+  if(!(span.style.display) || span.style.display == 'none') {
+      span.style.display = 'inline';
+      e.target.innerHTML = 'Read Less';
+      e.target.parentElement.gridColumn = 'span 2';
+      console.log()
+  } else {
+    e.target.previousElementSibling.firstElementChild.style.display = 'none';
+    e.target.innerHTML = 'Read More';
+    console.dir(e.target);
+    e.target.parentElement.gridColumn = 'span 1';
+  }
+}
+
 module.exports = {
   lost : lostView,
   booking : bookingView,
   signin : signInView,
   register : registerView,
   signedIn : signedInView,
-  populateBookings : populateBookings
+  populateBookings : populateBookings,
+  readMore : readMore
 }
