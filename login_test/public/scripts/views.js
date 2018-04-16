@@ -82,23 +82,34 @@ function populateBookings() {
 }
 
 function readMore(e) {
-  var span = e.target.previousElementSibling.firstElementChild;
+  var target = e.target;
+  var span = target.previousElementSibling.firstElementChild;
+  var mainBox = target.parentElement;
+  var img = target.parentElement.firstElementChild;
+  var cs = window.getComputedStyle(mainBox,null);
+  var mainBoxGridColumn = cs.getPropertyValue('grid-column');
+
   if(!(span.style.display) || span.style.display == 'none') {
       span.style.display = 'inline';
-      e.target.innerHTML = 'Read Less';
-      e.target.parentElement.style.gridColumn = 'span 2';
-      var src = e.target.parentElement.firstElementChild.src;
+      target.innerHTML = 'Read Less';
+      console.log(mainBoxGridColumn);
+      if(mainBoxGridColumn == 'span 1 / auto') {
+        mainBox.style.gridColumn = 'span 2 / auto';
+      }
+      var src = img.src;
       var splitted = src.split('.');
       splitted = splitted[0] + '_orig.jpg';
-      e.target.parentElement.firstElementChild.src = splitted;
+      img.src = splitted;
   } else {
-    e.target.previousElementSibling.firstElementChild.style.display = 'none';
-    e.target.innerHTML = 'Read More';
-    e.target.parentElement.style.gridColumn = 'span 1';
-    var src = e.target.parentElement.firstElementChild.src;
+    span.style.display = 'none';
+    target.innerHTML = 'Read More';
+    if(mainBoxGridColumn == 'span 2 / auto') {
+      mainBox.style.gridColumn = 'span 1 / auto';
+    }
+    var src = img.src;
     var splitted = src.split('_');
     splitted = splitted[0] + '.png';
-    e.target.parentElement.firstElementChild.src = splitted;
+    img.src = splitted;
   }
 }
 
