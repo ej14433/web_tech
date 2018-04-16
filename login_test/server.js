@@ -8,6 +8,10 @@ const crypto          = require('crypto');
 const nodemailer      = require('nodemailer');
 const qr              = require("qr-image");
 const saltRounds      = 10;
+const isPortAvailable = require('is-port-available');
+
+var port = 80;
+var fs = require("fs");
 var passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
 var session  = require("express-session"), bodyParser = require("body-parser");
 var transporter = nodemailer.createTransport({
@@ -19,9 +23,29 @@ var transporter = nodemailer.createTransport({
 });
 var png_string = qr.imageSync('SEAMOR130820', { type: 'png' });
 
+
+app.set('views', path.join(__dirname, 'public'));
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
-app.use(express.static(path.join(__dirname, 'public')));
+
+
+var checkURL = function(req, res, next){
+  console.log("using static");
+  if (req.url.includes("//")){
+    return res.send('URL should not contain string //', 400)
+  }
+  if (req.url != req.url.toLowerCase()){
+    return res.send('URL should not contain uppercase', 400)
+  }
+  next();
+}
+
+app.use(checkURL, express.static(path.join(__dirname, '/public')));
+
+
 app.use(session({
   secret: 'verygoodsecret',
   resave: false,
@@ -75,8 +99,26 @@ app.post('/login', passport.authenticate('local', { failureRedirect: '/',
   }
 }));
 
-app.get('/', function(req, res) {
-  res.sendFile(__dirname + './public/index.html')
+app.get("/:id", function(req, res, next) {
+  var url = "./public" + req.url;
+  //TODO: LOWER CASE URL
+  // URL can not contain //
+  console.log(url +".html");
+    if(!url.endsWith("/")){     //make sure url ends with / or send redirect signal
+      if(fs.existsSync(url + "/")){  // make sure such folder exist
+        console.log("redirect")
+        return res.redirect(req.url, 302);
+      }else if(fs.existsSync(url + ".html")){ //if no folder, try .html
+        res.setHeader('content-type', 'text/html; charset=utf-8');
+        console.log("rendering")
+        return res.render(req.params.id);
+      }else{
+        next();
+      }
+    }else if (fs.existsSync(url + "/index.html")){
+      return res.render(req.params.id);
+    }
+  next();
 });
 
 app.get('/issignedin', function(req,res) {
@@ -119,8 +161,17 @@ app.post('/register', function(req, res) {
   });
 });
 
-app.listen('8080', function() {
-  console.log('Server started on port 8080');
+isPortAvailable(port).then( status =>{
+    if(status){
+      app.listen(port, function(){
+        console.log('Listening on port ' + port); //Listening on port 8888
+      });
+    }else{
+      port = 8080;
+      app.listen(port, function(){
+        console.log('Listening on port ' + port); //Listening on port 8888
+      });
+    }
 });
 
 app.post('/reset', function (req, res) {
@@ -289,4 +340,9 @@ app.get('/bookings', function(req,res) {
       res.send(rows);
     });
   }
+});
+
+app.get("*", function(req, res, next) {
+  console.log("something 404");
+  res.send('Page not found', 404)
 });
