@@ -38,7 +38,7 @@ function makeBooking() {
   var trip = tripList.value.split(' ');
   var tripId = trip[0];
   var seats  = trip[1];
-  var request = req.get("/book?tripId="+tripId+"&seats="+seats);
+  var request = req.get("/book?tripid="+tripId+"&seats="+seats);
   request.onreadystatechange = function () {
     if(request.readyState == XMLHttpRequest.DONE) {
       message.show(request.response);

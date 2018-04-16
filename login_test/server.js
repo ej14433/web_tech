@@ -304,7 +304,7 @@ app.post('/newpassword', function(req,res) {
 app.get('/book', function(req,res) {
   if(req.session.passport) {
     const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
-    sqljs.makeBooking(db, req.session.passport.user ,req.query.tripId, req.query.seats, function(err) {
+    sqljs.makeBooking(db, req.session.passport.user ,req.query.tripid, req.query.seats, function(err) {
       if(err) throw err;
       res.send('Booking successful');
     });
