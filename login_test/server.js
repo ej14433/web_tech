@@ -8,20 +8,15 @@ const crypto          = require('crypto');
 const nodemailer      = require('nodemailer');
 const qr              = require("qr-image");
 const saltRounds      = 10;
-<<<<<<< HEAD
 const isPortAvailable = require('is-port-available');
 
 var port = 80;
 var fs = require("fs");
-var passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
-var session  = require("express-session"), bodyParser = require("body-parser");
-=======
+
 const passport        = require('passport');
 const LocalStrategy   = require('passport-local').Strategy;
 const session         = require("express-session");
 const bodyParser      = require("body-parser");
-
->>>>>>> 64d55dd3509275fe44d7128f7910fd3904398f3b
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -352,5 +347,5 @@ app.get('/bookings', function(req,res) {
 
 app.get("*", function(req, res, next) {
   console.log("something 404");
-  res.send('Page not found', 404)
+  return res.send('Page not found', 404)
 });
