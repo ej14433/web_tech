@@ -105,10 +105,21 @@ function sendVerification(email) {
   }
 }
 
+function logOut() {
+  var url = "/logout";
+  var request = req.get(url);
+  request.onreadystatechange = function () {
+    if(request.readyState == XMLHttpRequest.DONE) {
+      window.location.reload();
+    }
+  }
+}
+
 module.exports = {
   sendVerification : sendVerification,
   registerNewUser  : registerNewUser,
   loginUser        : loginUser,
   newPassword      : newPassword,
-  resetPassword    : resetPassword
+  resetPassword    : resetPassword,
+  logOut           : logOut
 }

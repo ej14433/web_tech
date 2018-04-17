@@ -14,6 +14,9 @@ window.addEventListener('load', function (e) {
       if(request.response == 'yes') {
         views.signedIn();
       }
+      if(request.response == 'no') {
+        views.signOut();
+      }
     }
   }
 
@@ -30,10 +33,13 @@ window.addEventListener('load', function (e) {
   var bookButton      = document.getElementById('book-trip'             );
   var myBookings      = document.getElementById('my-bookings'           );
   var readMores       = document.querySelectorAll('.read-more-button'   );
+  var logOut          = document.getElementById('log-out'               );
 
   if(bookings) {
     views.populateBookings();
   }
+
+  logOut.addEventListener(          'click', user.logOut         );
 
   if(search) {
     register.addEventListener(      'click', views.register      );

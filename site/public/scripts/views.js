@@ -35,13 +35,25 @@ function lostView() {
 function signedInView() {
   var bookingForm = document.getElementById('booking-form');
   var signInForm = document.getElementById('signin-form');
-  var myBookings = document.getElementById('my-bookings');
+  var logOut = document.getElementById('log-out');
 
   if(signInForm) {
     signInForm.style.display  = 'none';
     bookingForm.style.display = 'grid';
   }
-  // myBookings.style.display  = 'grid';
+  logOut.style.display = 'grid';
+}
+
+function signedOutView() {
+  var bookingForm = document.getElementById('booking-form');
+  var signInForm = document.getElementById('signin-form');
+  var logOut = document.getElementById('log-out');
+
+  if(signInForm) {
+    signInForm.style.display  = 'grid';
+    bookingForm.style.display = 'none';
+  }
+  logOut.style.display = 'none';
 }
 
 function populateBookings() {
@@ -120,5 +132,6 @@ module.exports = {
   register : registerView,
   signedIn : signedInView,
   populateBookings : populateBookings,
-  readMore : readMore
+  readMore : readMore,
+  signOut : signedOutView
 }

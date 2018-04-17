@@ -33,6 +33,7 @@ body {
 
 /*----------------------HEADER---------------------------------  */
 
+
 .main-header {
   display: grid;
   grid-column: span 3;
@@ -50,9 +51,22 @@ body {
 }
 
 .main-nav {
+  grid-row: 1;
+  grid-column: 1;
   display: grid;
   justify-content: center;
   background-color: var(--dark-blue);
+}
+
+#log-out {
+  display: none;
+  grid-row: 1;
+  grid-column: 1;
+  z-index: 1;
+  justify-self: right;
+  margin: 1rem;
+  text-decoration: none;
+  color: var(--white);
 }
 
 .main-ul {

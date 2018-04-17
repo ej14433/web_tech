@@ -36,7 +36,6 @@ app.use(passport.initialize());
 
 
 var checkURL = function(req, res, next){
-  console.log("using static");
   if (req.url.includes("//")){
     return res.send('URL should not contain string //', 400)
   }
@@ -94,15 +93,14 @@ app.post('/login', function (req, res) {
   }) (req, res);
 });
 
-app.post('/login', passport.authenticate('local', { failureRedirect: '/',
-  function (req, res) {
-
-  }
-}));
-
-
+app.get('/logout', function(req, res){
+  req.session.destroy(function (err) {
+    res.redirect('/');
+  });
+});
 
 app.get('/issignedin', function(req,res) {
+  console.log(req.session.passport);
   if(req.session.passport) {
     res.send('yes');
   } else {
