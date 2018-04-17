@@ -1,65 +1,53 @@
-"use strict"
+'use strict';
+const validate = require('./validation.js');
+const views    = require('./views.js'     );
+const req      = require('./request.js'   );
+const user     = require('./user.js'      );
+const message  = require('./message.js'   );
+const searchjs = require('./search.js'    );
 
-function readmore(id) {
-  var section   = document.getElementById(id).parentElement;
-  var hidden    = (section.getElementsByClassName('more'))[0];
-  var a         = (section.getElementsByTagName('a'))[0];
-  var sections  = document.getElementsByClassName('box');
-  var hiddens   = document.getElementsByClassName('more');
-  var as        = document.getElementsByClassName('readmore-a');
-  var x         = window.matchMedia('(min-width: 921px)');
-  if(x.matches) {
+window.addEventListener('load', function (e) {
 
-    if (section.style.gridColumn == 'span 2 / auto') {
-      section.style.gridColumn = 'span 1 / auto';
-      hidden.style.display = 'none';
-      a.innerText = 'Read More';
-
-
-    } else {
-
-      for(var i = 0; i < sections.length; i++) {
-        sections[i].style.gridColumn = 'span 1 / auto';
+  var request = req.get('/issignedin');
+  request.onreadystatechange = function() {
+    if(request.readyState == XMLHttpRequest.DONE) {
+      if(request.response == 'yes') {
+        views.signedIn();
       }
-      for(var i = 0; i < hiddens.length; i++) {
-        hiddens[i].style.display = 'none';
-      }
-      for (var i = 0; i < as.length; i++) {
-        as[i].innerText = 'Read More';
-      }
-      hidden.style.display = 'inherit';
-      section.style.gridColumn = 'span 2 / auto';
-      a.innerText = 'Read Less';
-      //section.style.gridRow = 'span 1 / 3';
-
-
-    }
-
-  } else {
-    if(hidden.style.display == 'inherit') {
-      hidden.style.display = 'none';
-      a.innerText = 'Read More';
-    } else {
-      section.style.gridColumn = 'span 3 / auto';
-      hidden.style.display = 'inherit';
-      a.innerText = 'Read Less';
     }
   }
 
-}
+  var bookings        = document.getElementById('bookings'              );
+  var register        = document.getElementById('register'              );
+  var search          = document.getElementById('search'                );
+  var signin          = document.getElementById('signin'                );
+  var registerButton  = document.getElementById('register-button'       );
+  var loginButton     = document.getElementById('login-button'          );
+  var lost            = document.getElementById('lost'                  );
+  var lostSignIn      = document.getElementById('lost-signin'           );
+  var reset           = document.getElementById('reset-password'        );
+  var finishReset     = document.getElementById('reset-account-password');
+  var bookButton      = document.getElementById('book-trip'             );
+  var myBookings      = document.getElementById('my-bookings'           );
+  var readMores       = document.querySelectorAll('.read-more-button'   );
 
-function choice(id){
-  var button  = document.getElementById(id);
-  var contact = document.getElementById('contact');
-  var review  = document.getElementById('review');
-
-  if(button.id == 'review-button') {
-    review.style.display = 'inherit';
-    contact.style.display = 'none';
-
+  if(bookings) {
+    views.populateBookings();
   }
-  if(button.id == 'contact-button') {
-    contact.style.display = 'inherit';
-    review.style.display = 'none';
+
+  if(search) {
+    register.addEventListener(      'click', views.register      );
+    loginButton.addEventListener(   'click', user.loginUser      );
+    signin.addEventListener(        'click', views.signin        );
+    registerButton.addEventListener('click', user.registerNewUser);
+    lost.addEventListener(          'click', views.lost          );
+    lostSignIn.addEventListener(    'click', views.signin        );
+    search.addEventListener(        'click', searchjs.available  );
+    reset.addEventListener(         'click', user.resetPassword  );
+    bookButton.addEventListener(    'click', searchjs.create     );
+    readMores.forEach(readMore => readMore.addEventListener('click', views.readMore));
   }
-}
+  if(finishReset) {
+    finishReset.addEventListener(   'click', user.newPassword);
+  }
+});

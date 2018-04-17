@@ -5,313 +5,407 @@
   --white:     #E8E8E8;
 }
 
-* {
+*{
+  box-sizing: border-box;
+  font-size: 1rem;
   padding: 0;
   margin: 0;
+  transition: 0.5s;
 }
-
 
 body {
   display: grid;
-  font-family: 'Roboto', sans-serif;
-  color: var(--off-white);
-  background: var(--off-white);
-  padding: 0;
-  margin: 0;
-  grid-template-columns: repeat(3, 1fr));
-  grid-template-rows: repeat(auto, 0.5fr));
-  grid-gap: 2rem;
-  /* overflow-x: hidden; */
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto 1fr 1fr;
+  background-color: var(--off-white);
+  color: var(--dark-blue);
+  font-family: 'Roboto',sans-serif;
+  height: 100vh;
+
 }
 
-body#contact-us {
-  grid-template-columns: repeat(2, minmax(100px, 1fr));
-}
 
-header h1 {
-  color: var(--off-white);
-  z-index: 2;
-  grid-row: 2;
-  grid-column: span 3;
-  text-align: center;
-  padding: 3rem;
-}
 
-header {
-  position: relative;
+/*---------------------------------------------------------------*/
+
+
+
+
+/*----------------------HEADER---------------------------------  */
+
+.main-header {
   display: grid;
+  grid-column: span 3;
+  grid-template-rows: auto;
+  height: 100vh;
   background-color: var(--blue);
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  grid-column: 1/4;
-  overflow: hidden;
+  box-shadow: -1px -1px 31px -4px rgba(0,0,0,0.75);
 }
 
-#home {
-  height: 90vh;
-  grid-template-rows: 4fr 5fr 2.5fr 2.5fr;
+.non-main-header {
+  display: grid;
+  grid-column: span 3;
+  grid-template-rows: auto;
+  background-color: var(--blue);
 }
 
-#not-home {
+.main-nav {
+  display: grid;
+  justify-content: center;
   background-color: var(--dark-blue);
-  grid-template-rows: repeat(4, 1fr);
-  min-height: 10vh;
 }
 
-nav ul {
+.main-ul {
   display: grid;
   list-style: none;
   text-align: center;
-  grid-template-columns:2fr repeat(4, 1fr);
+  grid-template-columns:repeat(6, 1fr);
   grid-gap: 2rem;
   padding: 0;
   margin: 0.5rem;
+  justify-content: center;
 }
 
-.logo {
-  width: 200px;
-  margin-top: -1rem;
-}
-
-#not-home-ul {
-  margin: 5rem auto;
-}
-
-li {
-  display: inline;
-  padding: 0;
-  z-index: 1;
-}
-
-a {
-  text-decoration: none;
-  color: black;
-  padding: 1rem 2rem;
-  color: var(--white);
-  border-style: solid;
-  border-width: 2px;
-  border-color: var(--off-white);
-  padding: 0.5rem 2rem;
-}
-
-nav {
+.main-li {
   display: grid;
-  height: 2rem;
-  padding: 0.5rem;
-  margin: auto;
-  grid-row: 1;
-  grid-column: 1/4;
-}
-
-.nav_underlay {
-  background: var(--dark-blue);
-  grid-row: 1;
-  grid-column: 1/4;
-  z-index: 0;
-  opacity: 0.8;
-}
-
-a:hover {
-  opacity: 0.4;
-}
-
-.video_wrap {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.video_wrap video{
-  opacity: 0.4;
-  min-width: 100%;
-}
-
-section {
-  display: grid;
-  color: var(--dark-blue);
-  background-color: var(--off-white);
-  padding: 1rem;
-  margin: 1rem;
-  text-align: left;
-  grid-row: span 1;
-  grid-column: span 1;
-  transition-property: grid-column;
-  transition-duration: 2s;
-}
-
-
-#map {
-  width: 100%;
-  min-height: 40vh;
-}
-
-section h2 {
-  text-align: center;
-}
-
-
-section img {
-  width: 100%;
-}
-
-section a {
-  text-decoration: none;
-  color: var(--dark-blue);
-  border-style: solid;
-  border-width: 2px;
-  border-color: var(--dark-blue);
-  padding: 0.5rem 2rem;
-  margin: 1rem;
-  width: 5rem;
-  text-align: center;
   align-self: center;
   justify-self: center;
 }
 
-.more {
-  display: none;
+.main-a {
+  text-decoration: none;
+  color: var(--white);
 }
 
-.boat {
-  margin-left: -50rem;
-  transition: 1.5s;
-  width: 10rem;
-  height: auto;
+.current {
+  color: grey;
 }
 
-.boat-sec:hover .boat{
-  margin-left: 0rem;
+.main-a:hover {
+  color: var(--blue);
 }
 
-#review {
-  display: none;
-}
-
-#contact {
-  display: none;
-}
-
-#choice {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-#choice button {
-  height: 3rem;
-  width: 90%;
-  margin: auto;
-  background: var(--dark-blue);
-  border: 0;
-  text-transform: uppercase;
-  color: var(--off-white);
-}
-
-.checked {
-    color: orange;
-}
-
-button:hover {
-  opacity: 0.6;
-  transition: 0.5s;
-
-}
-
-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 1rem;
-  padding: 1rem;
-}
-
-
-form label {
-  display: block;
-}
-
-form .wide {
+.li-logo {
   grid-column: span 2;
+  padding-top: 1.5rem;
 }
 
-form button, form input, form textarea {
-  box-sizing: border-box;
+.main-logo {
+  width: 9rem;
+}
+
+.video-wrap {
+  display: grid;
+  overflow: hidden;
+  grid-row: 2;
+  grid-column: 1;
+}
+
+.main-video {
+  justify-self: center;
+  min-width: 100%;
+}
+/*---------------------------------------------------------------*/
+
+
+
+/* ----------------------FORMS--------------------------------- */
+
+
+.login-a {
+  text-decoration: none;
+  color: var(--dark-blue);
+  text-align: center;
   grid-column: span 1;
-  width: 100%;
-  padding: 1rem;
-  margin: 0.5rem;
-  margin-left: 0;
-  border: 1px solid var(--dark-blue);
-}
-
-form button {
-  background: var(--dark-blue);
-  border: 0;
-  text-transform: uppercase;
-  color: var(--off-white)
-}
-
-footer{
-  height: 5rem;
-  background-color: var(--dark-blue);
-  width: 100%;
-  color: var(--off-white);
-  padding: 2rem;
-  grid-column: span 3;
+  font-size: 0.9rem;
+  align-self: center;
   grid-row: span 1;
 }
 
-@media(max-width: 921px){
+.login-a:hover {
+  color: var(--blue);
+}
 
-  body {
-    grid-template-rows: repeat(4, auto);
-    grid-template-columns: 1fr;
-  }
+.login-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-gap: 1rem;
+  background-color: var(--white);
+  padding: 1rem;
+  margin: 0rem 1rem;
+  border-radius: 0.5rem;
+  max-width: 35rem;
+  justify-self: center;
+  align-self: center;
+  grid-row: 2;
+  grid-column: 1;
+  z-index: 1;
+}
 
-  section {
-    display: grid;
-    grid-row: span 1;
-    grid-column: span 3;
-    margin-right: 0rem;
-  }
+#reset-form {
+  display: grid;
+}
 
-  section a {
-    margin: 1rem auto;
-  }
+.message {
+  display: none;
+  grid-template-rows: 1fr 1fr;
+  background-color: var(--off-white);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  max-width: 35rem;
+  justify-self: center;
+  align-self: center;
+  color: var(--dark-blue);
+}
 
-  nav ul {
+.login-input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid var(--off-white);
+  border-radius: 0.5rem;
+}
+
+.login-button {
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  grid-column: span 2;
+  grid-row: span 1;
+  width: 100%;
+  justify-self: end;
+  transition: color, border-radius;
+  transition-duration: 0.25s;
+  background-color: var(--dark-blue);
+  color: var(--white);
+  border-radius: 0.5rem;
+  min-height: 2.5rem;
+}
+
+#search {
+  grid-column: span 1;
+}
+
+.login-button:hover {
+  color: grey;
+}
+
+.form-select {
+  background-color: white;
+  border-color: var(--off-white);
+}
+
+#register-form, #booking-form, #lost-form {
+  display: none;
+}
+
+.error-overlay {
+  display: none;
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  transition: opacity;
+  transition-duration: 0.5s;
+}
+
+.error-message {
+  color: white;
+  background-color: rgba(1,1,1,0.8);
+  padding: 4rem;
+  justify-self: center;
+  align-self: center;
+  margin-top: -40vh;
+  z-index: 1;
+}
+
+.row-span-3 {
+  grid-row: span 3;
+}
+
+.wide {
+  grid-column: span 2;
+}
+
+.narrow {
+  grid-column: span 1;
+}
+
+.tall {
+  grid-template-rows: repeat(1fr, 5);
+}
+
+.taller {
+  grid-template-rows: repeat(1fr, 6);
+}
+
+.invisible {
+  display: none;
+}
+
+.blue {
+  background-color: var(--dark-blue);
+}
+
+.width-2 {
+  grid-template-columns: 1fr 1fr;
+}
+/*-------------------------------------------------------------*/
+
+
+
+
+/*----------------------BOXES---------------------------------*/
+
+.main-box {
+  display: grid;
+  margin: 1rem;
+  padding: 1rem;
+  grid-gap: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: -1px -1px 31px -4px rgba(0,0,0,0.75);
+  grid-template-columns: 1fr;
+  background-color: var(--white);
+  transition: .5s;
+  grid-column: span 1;
+}
+
+.main-box img {
+  max-width: 100%;
+  margin-bottom: 1rem;
+}
+
+.main-box a {
+  text-decoration: none;
+  color: var(--dark-blue);
+  padding: 0.5rem 1rem;
+  margin: 1rem;
+  justify-self: center;
+}
+
+.main-box a:hover {
+  color: lightgrey;
+  cursor: pointer;
+}
+
+.main-box h2 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+
+
+/*---------------------------------------------------------------*/
+
+
+
+/* ----------------------FOOTER--------------------------------- */
+
+
+footer {
+  display: grid;
+  grid-column: span 3;
+  width: 100%;
+  background-color: var(--dark-blue);
+  color: var(--off-white);
+}
+
+footer p {
+  margin: 3rem;
+}
+
+/*------------------------------------------------------------ */
+
+
+
+/*----------------------BOOKINGS--------------------------------- */
+
+#bookings {
+  grid-column: span 3;
+  display: grid;
+}
+
+.booking {
+  border-radius: 0.5rem;
+  box-shadow: -1px -1px 31px -4px rgba(0,0,0,0.75);
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 1rem;
+  max-width: 30rem;
+  height: 9rem;
+  justify-self: center;
+
+  background-color: var(--white);
+  overflow: hidden;
+}
+
+.booking .content {
+  margin-left: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.booking .boat {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.booking-number {
+  grid-column: span 2;
+  background-color: var(--blue);
+  color: var(--off-white);
+  padding: 0.25rem;
+}
+
+.info {
+  font-size: 0.75rem;
+}
+/* ------------------------------------------------------------------ */
+
+
+
+
+
+/* ----------------------CONTACT US --------------------------------- */
+
+
+#map {
+  min-height: 20rem;
+}
+
+.comment-area {
+  grid-column: span 2;
+  grid-row: span 2;
+  border-radius: 0.5rem;
+  border-style: none;
+  padding: 1rem;
+}
+
+
+
+
+
+
+
+
+/*---------------------------------------------------------------*/
+
+
+@media(max-width: 700px) {
+
+  .main-ul {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    grid-gap: 1rem 3rem;
   }
 
-  .logo {
+  .li-logo {
+    grid-column: span 2;
   }
 
-  .logo-li {
-    display: none;
-  }
-
-  li {
-    margin: 0.5rem 0.5rem;
-  }
-
-  #contact {
-    grid-row: span 1;
+  .main-box {
     grid-column: span 3;
-    margin-right: 0;
   }
 
-  #home-ul {
-    margin: auto;
-  }
-
-  #not-home-ul{
-    margin: 3rem auto;
-  }
-
-
-  footer {
-    grid-row: 10;
+  .span-3 {
+    grid-column: span 3;
   }
 
 }

@@ -1,0 +1,317 @@
+:root {
+  --off-white: #F7F5E6;
+  --dark-blue: #333A56;
+  --blue:      #52658F;
+  --white:     #E8E8E8;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+
+body {
+  display: grid;
+  font-family: 'Roboto', sans-serif;
+  color: var(--off-white);
+  background: var(--off-white);
+  padding: 0;
+  margin: 0;
+  grid-template-columns: repeat(3, 1fr));
+  grid-template-rows: repeat(auto, 0.5fr));
+  grid-gap: 2rem;
+  /* overflow-x: hidden; */
+}
+
+body#contact-us {
+  grid-template-columns: repeat(2, minmax(100px, 1fr));
+}
+
+header h1 {
+  color: var(--off-white);
+  z-index: 2;
+  grid-row: 2;
+  grid-column: span 3;
+  text-align: center;
+  padding: 3rem;
+}
+
+header {
+  position: relative;
+  display: grid;
+  background-color: var(--blue);
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  grid-column: 1/4;
+  overflow: hidden;
+}
+
+#home {
+  height: 90vh;
+  grid-template-rows: 4fr 5fr 2.5fr 2.5fr;
+}
+
+#not-home {
+  background-color: var(--dark-blue);
+  grid-template-rows: repeat(4, 1fr);
+  min-height: 10vh;
+}
+
+nav ul {
+  display: grid;
+  list-style: none;
+  text-align: center;
+  grid-template-columns:2fr repeat(4, 1fr);
+  grid-gap: 2rem;
+  padding: 0;
+  margin: 0.5rem;
+}
+
+.logo {
+  width: 200px;
+  margin-top: -1rem;
+}
+
+#not-home-ul {
+  margin: 5rem auto;
+}
+
+li {
+  display: inline;
+  padding: 0;
+  z-index: 1;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  padding: 1rem 2rem;
+  color: var(--white);
+  border-style: solid;
+  border-width: 2px;
+  border-color: var(--off-white);
+  padding: 0.5rem 2rem;
+}
+
+nav {
+  display: grid;
+  height: 2rem;
+  padding: 0.5rem;
+  margin: auto;
+  grid-row: 1;
+  grid-column: 1/4;
+}
+
+.nav_underlay {
+  background: var(--dark-blue);
+  grid-row: 1;
+  grid-column: 1/4;
+  z-index: 0;
+  opacity: 0.8;
+}
+
+a:hover {
+  opacity: 0.4;
+}
+
+.video_wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.video_wrap video{
+  opacity: 0.4;
+  min-width: 100%;
+}
+
+section {
+  display: grid;
+  color: var(--dark-blue);
+  background-color: var(--off-white);
+  padding: 1rem;
+  margin: 1rem;
+  text-align: left;
+  grid-row: span 1;
+  grid-column: span 1;
+  transition-property: grid-column;
+  transition-duration: 2s;
+}
+
+
+#map {
+  width: 100%;
+  min-height: 40vh;
+}
+
+section h2 {
+  text-align: center;
+}
+
+
+section img {
+  width: 100%;
+}
+
+section a {
+  text-decoration: none;
+  color: var(--dark-blue);
+  border-style: solid;
+  border-width: 2px;
+  border-color: var(--dark-blue);
+  padding: 0.5rem 2rem;
+  margin: 1rem;
+  width: 5rem;
+  text-align: center;
+  align-self: center;
+  justify-self: center;
+}
+
+.more {
+  display: none;
+}
+
+.boat {
+  margin-left: -50rem;
+  transition: 1.5s;
+  width: 10rem;
+  height: auto;
+}
+
+.boat-sec:hover .boat{
+  margin-left: 0rem;
+}
+
+#review {
+  display: none;
+}
+
+#contact {
+  display: none;
+}
+
+#choice {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#choice button {
+  height: 3rem;
+  width: 90%;
+  margin: auto;
+  background: var(--dark-blue);
+  border: 0;
+  text-transform: uppercase;
+  color: var(--off-white);
+}
+
+.checked {
+    color: orange;
+}
+
+button:hover {
+  opacity: 0.6;
+  transition: 0.5s;
+
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+  padding: 1rem;
+}
+
+
+form label {
+  display: block;
+}
+
+form .wide {
+  grid-column: span 2;
+}
+
+form button, form input, form textarea {
+  box-sizing: border-box;
+  grid-column: span 1;
+  width: 100%;
+  padding: 1rem;
+  margin: 0.5rem;
+  margin-left: 0;
+  border: 1px solid var(--dark-blue);
+}
+
+form button {
+  background: var(--dark-blue);
+  border: 0;
+  text-transform: uppercase;
+  color: var(--off-white)
+}
+
+footer{
+  height: 5rem;
+  background-color: var(--dark-blue);
+  width: 100%;
+  color: var(--off-white);
+  padding: 2rem;
+  grid-column: span 3;
+  grid-row: span 1;
+}
+
+@media(max-width: 921px){
+
+  body {
+    grid-template-rows: repeat(4, auto);
+    grid-template-columns: 1fr;
+  }
+
+  section {
+    display: grid;
+    grid-row: span 1;
+    grid-column: span 3;
+    margin-right: 0rem;
+  }
+
+  section a {
+    margin: 1rem auto;
+  }
+
+  nav ul {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-gap: 1rem 3rem;
+  }
+
+  .logo {
+  }
+
+  .logo-li {
+    display: none;
+  }
+
+  li {
+    margin: 0.5rem 0.5rem;
+  }
+
+  #contact {
+    grid-row: span 1;
+    grid-column: span 3;
+    margin-right: 0;
+  }
+
+  #home-ul {
+    margin: auto;
+  }
+
+  #not-home-ul{
+    margin: 3rem auto;
+  }
+
+
+  footer {
+    grid-row: 10;
+  }
+
+}
