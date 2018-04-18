@@ -9,9 +9,14 @@ const nodemailer      = require('nodemailer');
 const qr              = require("qr-image");
 const saltRounds      = 10;
 const isPortAvailable = require('is-port-available');
+const https           = require('https');
+const http            = require('http');
+const fs              = require('fs');
 
 var port = 80;
-var fs = require("fs");
+var backup_port = 8080;
+var https_port = 8888;
+var server = 0;
 
 const passport        = require('passport');
 const LocalStrategy   = require('passport-local').Strategy;
@@ -140,18 +145,7 @@ app.post('/register', function(req, res) {
   });
 });
 
-isPortAvailable(port).then( status =>{
-    if(status){
-      app.listen(port, function(){
-        console.log('Listening on port ' + port); //Listening on port 8888
-      });
-    }else{
-      port = 8080;
-      app.listen(port, function(){
-        console.log('Listening on port ' + port); //Listening on port 8888
-      });
-    }
-});
+
 
 app.post('/reset', function (req, res) {
   const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
@@ -346,5 +340,28 @@ app.get("/:id", function(req, res, next) {
 
 app.get("*", function(req, res, next) {
   console.log("something 404");
+  console.log(req.url)
   return res.send('Page not found', 404)
+});
+
+const httpsOptions = {
+  cert: fs.readFileSync(path.join(__dirname, 'ssl', 'server.crt')),
+  key:  fs.readFileSync(path.join(__dirname, 'ssl', 'server.key'))
+}
+
+isPortAvailable(port).then( status =>{
+    if(status){
+      var server = http.createServer(app).listen(port, function(){
+        console.log("Listening to port: "+ port);
+      });
+    }else{
+      var server = http.createServer(app).listen(8080, function(){
+        console.log("Listening to port: "+ 8080);
+      });
+    }
+});
+
+
+https.createServer(httpsOptions, app).listen(https_port, function(){
+  console.log("Listening to port: "+ https_port);
 });
