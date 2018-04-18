@@ -16,7 +16,6 @@ const fs              = require('fs');
 var port = 80;
 var backup_port = 8080;
 var https_port = 8888;
-var server = 0;
 
 const passport        = require('passport');
 const LocalStrategy   = require('passport-local').Strategy;
@@ -351,12 +350,12 @@ const httpsOptions = {
 
 isPortAvailable(port).then( status =>{
     if(status){
-      var server = http.createServer(app).listen(port, function(){
+      http.createServer(app).listen(port, function(){
         console.log("Listening to port: "+ port);
       });
     }else{
-      var server = http.createServer(app).listen(8080, function(){
-        console.log("Listening to port: "+ 8080);
+      http.createServer(app).listen(backup_port, function(){
+        console.log("Listening to port: "+ backup_port);
       });
     }
 });
