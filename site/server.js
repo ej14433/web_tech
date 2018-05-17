@@ -12,10 +12,11 @@ const isPortAvailable = require('is-port-available');
 const https           = require('https');
 const http            = require('http');
 const fs              = require('fs');
+const expressSanitizer= require('express-sanitizer');
+
 
 var port = 80;
 var backup_port = 8080;
-var https_port = 8888;
 
 const passport        = require('passport');
 const LocalStrategy   = require('passport-local').Strategy;
@@ -37,7 +38,7 @@ app.set('view engine', 'html');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
-
+app.use(expressSanitizer());
 
 var checkURL = function(req, res, next){
   if (req.url.includes("//")){
@@ -47,7 +48,6 @@ var checkURL = function(req, res, next){
 }
 
 app.use(checkURL, express.static(path.join(__dirname, '/public')));
-
 
 
 app.use(session({
@@ -337,6 +337,13 @@ app.get("/:id", function(req, res, next) {
   next();
 });
 
+app.post('/', function(req, res, next) {
+  // replace an HTTP posted body property with the sanitized string
+  req.body.sanitized = req.sanitize(req.body.propertyToSanitize);
+  // send the response
+  res.send('Your value was sanitized to: ' + req.body.sanitized);
+});
+
 app.get("*", function(req, res, next) {
   console.log("something 404");
   console.log(req.url)
@@ -350,17 +357,17 @@ const httpsOptions = {
 
 isPortAvailable(port).then( status =>{
     if(status){
-      http.createServer(app).listen(port, function(){
+      https.createServer(httpsOptions, app).listen(port, function(){
         console.log("Listening to port: "+ port);
       });
     }else{
-      http.createServer(app).listen(backup_port, function(){
-        console.log("Listening to port: "+ backup_port);
+      https.createServer(httpsOptions, app).listen(backup_port, function(){
+        console.log("Port 80 is occupied, Listening to port: "+ backup_port);
       });
     }
 });
 
-
-https.createServer(httpsOptions, app).listen(https_port, function(){
-  console.log("Listening to port: "+ https_port);
-});
+//
+// https.createServer(httpsOptions, app).listen(https_port, function(){
+//   console.log("Listening to port: "+ https_port);
+// });
