@@ -12,7 +12,6 @@ const isPortAvailable = require('is-port-available');
 const https           = require('https');
 const http            = require('http');
 const fs              = require('fs');
-const helmet          = require('helmet')
 
 var port = 80;
 var backup_port = 8080;
@@ -32,53 +31,12 @@ var transporter = nodemailer.createTransport({
 var png_string = qr.imageSync('SEAMOR130820', { type: 'png' });
 
 
-const httpsOptions = {
-  cert: fs.readFileSync(path.join(__dirname, 'ssl', 'server.crt')),
-  key:  fs.readFileSync(path.join(__dirname, 'ssl', 'server.key'))
-}
-
 app.set('views', path.join(__dirname, 'public'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
-
-//default:
-//frameguard, -> prevent clickjacking
-// dnsprefetch, -> prefetching is not allowed
-// hidepoweredby -> remove x powred by header, add obscurity, increase performance slightly
-//https-strict-transport-security, HSTS -> "force" https than http
-//ienoopen, -> prevent old IE browser from opening HTML file in context of the site, so that they
-//can not act as the site
-
-// nosniff, -> prevent browser to execute unknown/Incorrect MIME content type.
-// xssfilter -> prevent browser exexute scripting inside the url
-app.use(helmet())
-
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
-
-// helmet settings
-
-//clickjacking attack prevention.
-//deny if completely ignore, but samorigin to allow admin to add their own frame
-app.use(helmet({
-  frameguard: {
-    action: 'sameorigin'
-  }
-}))
-
-// turn on increase loading speed, but expose user privacy
-// off = default speed, but more privacy control for user as they can turn this
-// on if they want to
-// here, privacy priority
-app.use(helmet.dnsPrefetchControl({ allow: false }))
-
-//HSTS
-var halfYear = 15770000
-app.use(hsts({
-  maxAge: halfYear
-}))
 
 
 var checkURL = function(req, res, next){
@@ -385,7 +343,10 @@ app.get("*", function(req, res, next) {
   return res.send('Page not found', 404)
 });
 
-
+const httpsOptions = {
+  cert: fs.readFileSync(path.join(__dirname, 'ssl', 'server.crt')),
+  key:  fs.readFileSync(path.join(__dirname, 'ssl', 'server.key'))
+}
 
 isPortAvailable(port).then( status =>{
     if(status){
