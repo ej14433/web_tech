@@ -395,11 +395,11 @@ const httpsOptions = {
 isPortAvailable(port).then( status =>{
     if(status){
       https.createServer(httpsOptions, app).listen(port, function(){
-        console.log("Listening to port: "+ port);
+        console.log("Listening to port: https://localhost:"+ port);
       });
     }else{
       https.createServer(httpsOptions, app).listen(backup_port, function(){
-        console.log("Port 80 is occupied, Listening to port: "+ backup_port);
+        console.log("Port 80 is occupied, Listening to port: https://localhost:"+ backup_port);
       });
     }
 });
