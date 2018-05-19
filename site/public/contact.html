@@ -34,11 +34,11 @@
     </section>
 
     <form action="" class="main-box span-3 taller">
-      <input class="login-input" type="text" placeholder="First Name">
-      <input type="text" placeholder="Last Name" class="login-input">
-      <input type="text" class="login-input wide" placeholder="Email">
-      <textarea class="comment-area" name="comment" rows="8" cols="80"></textarea>
-      <input type="button" class="login-button" value="Submit Review">
+      <input class="login-input" type="text" id="review-firstname" placeholder="First Name" autocomplete="given-name">
+      <input type="text" placeholder="Last Name" id="review-lastname" class="login-input" autocomplete="family-name">
+      <input type="text" class="login-input wide" id="review-email" placeholder="Email"autocomplete="email">
+      <textarea class="comment-area" name="comment" id="review-entry" rows="8" cols="80"></textarea>
+      <input type="button" class="login-button" id="review-submit" value="Submit Review">
     </form>
   </body>
   <footer>

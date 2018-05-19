@@ -141,7 +141,6 @@ app.get('/logout', function(req, res){
 });
 
 app.get('/issignedin', function(req,res) {
-  console.log(req.session.passport);
   if(req.session.passport) {
     res.send('yes');
   } else {
@@ -242,7 +241,6 @@ app.post('/verify', function(req, res) {
 app.get('/verify', function(req,res) {
 
   const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
-  console.log(req.query);
   sqljs.checkVerfication(db, req.query.email, req.query.token, function(err) {
     if(err) throw err;
     if(!err) {
@@ -329,13 +327,29 @@ app.post('/newpassword', function(req,res) {
   });
 });
 
+app.post('/review', function(req,res) {
+  const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
+  var email = req.body.email;
+  var name  = `${req.body.firstname} ${req.body.lastname}`;
+  var review = req.body.review;
+
+  sqljs.addReview(db,email,name,review, function(err){
+    if(err) res.send(err);
+    if(!err) res.send('success');
+  });
+});
+
 app.get('/book', function(req,res) {
   if(req.session.passport) {
-    const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
-    sqljs.makeBooking(db, req.session.passport.user ,req.query.tripid, req.query.seats, function(err) {
-      if(err) throw err;
-      res.send('Booking successful');
-    });
+    if(!(req.query.tripid)) {
+      res.send("You must select a trip");
+    } else {
+      const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
+      sqljs.makeBooking(db, req.session.passport.user ,req.query.tripid, req.query.seats, function(err) {
+        if(err) throw err;
+        res.send('Booking successful');
+      });
+    }
   } else {
     res.send('You must sign in');
   }
@@ -351,12 +365,19 @@ app.get('/bookings', function(req,res) {
   }
 });
 
+app.get('/latestreviews', function(req, res) {
+    const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
+    sqljs.getLatestReviews(db, function(err, rows) {
+      if (err) throw err;
+      res.send(rows)
+    });
+});
+
 
 app.get("/:id", function(req, res, next) {
   var url = "./public" + req.url;
   //TODO: LOWER CASE URL
   // URL can not contain //
-  console.log("hi");
     if(!url.endsWith("/")){     //make sure url ends with / or send redirect signal
       if(fs.existsSync(url + "/")){  // make sure such folder exist
         console.log("redirect")
@@ -382,8 +403,6 @@ app.post('/', function(req, res, next) {
 });
 
 app.get("*", function(req, res, next) {
-  console.log("something 404");
-  console.log(req.url)
   return res.send('Page not found', 404)
 });
 

@@ -5,6 +5,7 @@ const req      = require('./request.js'   );
 const user     = require('./user.js'      );
 const message  = require('./message.js'   );
 const searchjs = require('./search.js'    );
+const review   = require('./review.js'    );
 
 window.addEventListener('load', function (e) {
 
@@ -34,9 +35,16 @@ window.addEventListener('load', function (e) {
   var myBookings      = document.getElementById('my-bookings'           );
   var readMores       = document.querySelectorAll('.read-more-button'   );
   var logOut          = document.getElementById('log-out'               );
+  var forms           = document.querySelectorAll('form'                );
+  var reviewButton    = document.querySelector('#review-submit'         );
+  var reviewsContainter = document.querySelector('.reviews-container'   );
 
   if(bookings) {
     views.populateBookings();
+  }
+
+  if(reviewButton) {
+    reviewButton.addEventListener(  'click', review.submit       );
   }
 
   logOut.addEventListener(          'click', user.logOut         );
@@ -52,8 +60,23 @@ window.addEventListener('load', function (e) {
     reset.addEventListener(         'click', user.resetPassword  );
     bookButton.addEventListener(    'click', searchjs.create     );
     readMores.forEach(readMore => readMore.addEventListener('click', views.readMore));
+    forms.forEach(        form => form.addEventListener(    'keyup', keyPress      ));
+    review.populate();
+
   }
+
   if(finishReset) {
     finishReset.addEventListener(   'click', user.newPassword);
   }
 });
+
+function keyPress(e){
+  switch(e.keyCode) {
+    case 13:
+      parent = e.target.parentElement;
+      if(parent.id == 'signin-form') {
+        user.loginUser();
+      }
+      break;
+  }
+}

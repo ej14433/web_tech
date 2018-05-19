@@ -19,6 +19,9 @@ function searchAvail() {
       request.onreadystatechange = function () {
         if(request.readyState == XMLHttpRequest.DONE) {
           trips = JSON.parse(request.response);
+          if(request.response == "notrip") {
+            message.show("You must choose a trip first")
+          }
           tripList.innerHTML = '<option value="empty"></option>';
           if(trips.length == 0) {
             message.show("There are no trips available within these values");

@@ -1,8 +1,8 @@
 'use strict';
+const message  = require('./message.js');
+const req      = require('./request.js');
 const validate = require('./validation.js');
 const views    = require('./views.js');
-const req      = require('./request.js');
-const message = require('./message.js');
 
 function resetPassword() {
   var email = document.getElementById('reset-email').value;

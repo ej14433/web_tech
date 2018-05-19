@@ -98,7 +98,6 @@ function checkVerfication(db, email, token, callback) {
     var query = "select * from users where email = '"+email+"'";
     db.all(query, function(err, users) {
       if(err) throw err;
-      console.log(email);
       if(users.length > 0) {
         if(users[0].verification = token) {
           query = "update users set verification = null, active = 'true' where email = '"+email+"'";
@@ -179,6 +178,26 @@ function getBookingsByUserId(db, userId, callback) {
   });
 }
 
+function addReview(db, email, name, review, callback) {
+  db.serialize(function() {
+    var query = `insert into reviews (email, name, review) values ('${email}', '${name}', '${review}')`;
+    db.run(query, function(err) {
+      if(err) throw err;
+    });
+  });
+}
+
+function getLatestReviews(db, callback) {
+  var allReviews = [];
+  db.serialize(function() {
+    var query = "select * from reviews order by reviewId desc limit 3";
+    db.all(query, function(err, reviews) {
+      if (err) throw err;
+      callback(0, reviews);
+    });
+  });
+}
+
 
 module.exports = {
   storeUserHash   : storeUserHash,
@@ -192,5 +211,7 @@ module.exports = {
   setVerificationToken : setVerificationToken,
   checkVerfication: checkVerfication,
   makeBooking     : makeBooking,
-  getBookingsByUserId : getBookingsByUserId
+  getBookingsByUserId : getBookingsByUserId,
+  addReview : addReview,
+  getLatestReviews : getLatestReviews
 }
