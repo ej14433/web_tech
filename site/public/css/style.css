@@ -39,8 +39,12 @@ body {
   grid-column: span 3;
   grid-template-rows: auto;
   height: 100vh;
-  background-color: var(--blue);
+  min-height: 770px;
   box-shadow: -1px -1px 31px -4px rgba(0,0,0,0.75);
+  background-image:url('../img/islander_orig.jpg');
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position:center;
 }
 
 .non-main-header {
@@ -141,7 +145,10 @@ body {
   padding: 1rem;
   grid-gap: 0.5rem;
   min-width: 20rem;
+  overflow: hidden;
 }
+
+
 
 .reviews img {
   height: 2.5rem;
@@ -152,8 +159,23 @@ body {
 .reviews h2 {
 }
 
+.reviews p:after {
+    content:"";
+    position:absolute;
+    top: 0;
+    left:0;
+    height: 100%;
+    width:100%;
+    background: linear-gradient(rgba(0,0,0,0), var(--white));
+}
+
 .reviews p {
+  position: relative;
   grid-column: span 2;
+  overflow: hidden;
+  max-height: 8rem;
+  height: 100%;
+  vertical-align: text-top;
 }
 /*---------------------------------------------------------------*/
 
@@ -342,6 +364,21 @@ body {
   font-weight: bold;
 }
 
+
+.title-container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 0.5rem;
+}
+
+.title-container img{
+  height: 2rem;
+  margin-top: 0.25rem;
+}
+
+.title-container #sea-icon {
+  margin-top: 0;
+}
 
 
 /*---------------------------------------------------------------*/

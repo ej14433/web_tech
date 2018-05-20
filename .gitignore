@@ -65,6 +65,8 @@ Thumbs.db
 *.sublime-project
 *.sublime-workspace
 *.komodoproject
+*.icloud
+
 
 package.json
 package-lock.json

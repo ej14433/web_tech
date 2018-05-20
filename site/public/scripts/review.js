@@ -30,7 +30,7 @@ function populate() {
       for(var i = 0; i < reviews.length; i ++) {
         var template = `
           <div class="reviews">
-            <img src="./img/default-user.png" alt="">
+            <img src="./img/default.svg" alt="">
             <h2>${reviews[i].name}</h2>
             <p>${reviews[i].review}</p>
           </div>
