@@ -221,7 +221,7 @@ app.post('/verify', function(req, res) {
       crypto.randomBytes(48, function(err, buffer) {
         var token = buffer.toString('hex');
         sqljs.setVerificationToken(db, req.body.email, token, function () {
-          var url = 'http://localhost:8080/verify?token=' + token + '&email=' + req.body.email;
+          var url = 'https://localhost:8080/verify?token=' + token + '&email=' + req.body.email;
           var mailOptions = {
             from: 'SeaMor <seamorwildlifetours@gmail.com>',
             to: req.body.email,
@@ -239,7 +239,6 @@ app.post('/verify', function(req, res) {
 });
 
 app.get('/verify', function(req,res) {
-
   const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
   sqljs.checkVerfication(db, req.query.email, req.query.token, function(err) {
     if(err) throw err;
@@ -362,6 +361,16 @@ app.get('/bookings', function(req,res) {
       if (err) throw err;
       res.send(rows);
     });
+  }
+});
+
+app.get('/accountdetails', function(req,res) {
+  if(req.session.passport) {
+    const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
+    sqljs.getAccountDetails(db, req.session.passport.user, function(err, rows) {
+      if(err) throw err;
+      res.send(rows);
+    })
   }
 });
 

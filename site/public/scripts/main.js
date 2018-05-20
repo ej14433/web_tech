@@ -41,6 +41,7 @@ window.addEventListener('load', function (e) {
 
   if(bookings) {
     views.populateBookings();
+    views.populateAccount();
   }
 
   if(reviewButton) {

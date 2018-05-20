@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
   </head>
 
-    <body>
+    <body class="width-2">
       <header class="non-main-header">
         <a id="log-out" href="#">Log Out</a>
         <nav class="main-nav">
@@ -19,13 +19,27 @@
             <li class="main-li"><a class="main-a" href="wildlife.html">Wildlife</a></li>
             <li class="main-li"><a class="main-a" href="boats.html">Boats</a></li>
             <li class="main-li"><a class="main-a" href="contact.html">Contact Us</a></li>
-            <li class="main-li" id="my-bookings"><a class="main-a current" href="bookings.html">My Bookings</a></li>
+            <li class="main-li" id="my-bookings"><a class="main-a current" href="bookings.html">My Account</a></li>
           </ul>
         </nav>
       </header>
-
-      <section id="bookings">
+      <section class="main-box">
+        <h2>Bookings</h2>
+        <section id="bookings">
+        </section>
       </section>
+      <section class="main-box">
+        <h2>Account Details</h2>
+        <section class="account-info">
+          <p>Name:</p>
+          <input type="text" name="name" value="">
+          <p>Email:</p>
+          <input type="text" name="email" value="">
+          <input class="login-button" id="login-button" type="button" value="Update Details" />
+        </section>
+      </section>
+
+
 
       <footer>
         <p>by Elis Jones, and Sonny Peng. Copyright 2018</p>

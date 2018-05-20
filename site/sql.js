@@ -5,7 +5,7 @@ function storeUserHash(db, user, hash, email, callback) {
   db.serialize(function() {
     var query = "insert into users (username, password, email, active) values ('" + user +  "', '" + hash + "', '"+email+"', 'false')";
     db.run(query, function(err) {
-      if (err) throw err;
+      if (err) callback(err);
       if (!err) callback();
     });
   });
@@ -177,6 +177,17 @@ function getBookingsByUserId(db, userId, callback) {
     });
   });
 }
+function getAccountDetails(db, user, callback) {
+  db.serialize(function() {
+    var query = `select * from users where userId = ${user}`;
+    db.all(query, function(err, account) {
+      if(err) throw err;
+      var template = `{ "username" : "${account[0].username}", "email" : "${account[0].email}"}`
+      callback(0, template);
+      db.close();
+    });
+  });
+}
 
 function addReview(db, email, name, review, callback) {
   db.serialize(function() {
@@ -194,6 +205,7 @@ function getLatestReviews(db, callback) {
     db.all(query, function(err, reviews) {
       if (err) throw err;
       callback(0, reviews);
+      db.close();
     });
   });
 }
@@ -212,6 +224,7 @@ module.exports = {
   checkVerfication: checkVerfication,
   makeBooking     : makeBooking,
   getBookingsByUserId : getBookingsByUserId,
+  getAccountDetails : getAccountDetails,
   addReview : addReview,
   getLatestReviews : getLatestReviews
 }

@@ -93,6 +93,25 @@ function populateBookings() {
   }
 }
 
+function populateAccount() {
+  var accountElement = document.querySelector('.account-info');
+  var request = req.get('/accountdetails');
+  request.onreadystatechange = function () {
+    if(request.readyState == XMLHttpRequest.DONE) {
+      var details = JSON.parse(request.response);
+      accountElement.innerHTML =
+      `
+        <p>Name:</p>
+        <input type="text" name="name" value="${details.username}">
+        <p>Email:</p>
+        <input type="text" name="email" value="${details.email}">
+        <input class="login-button" id="login-button" type="button" value="Update Details" />
+      `;
+      console.log(request.response);
+    }
+  }
+}
+
 function readMore(e) {
   var target = e.target;
   var span = target.previousElementSibling.firstElementChild;
@@ -132,6 +151,7 @@ module.exports = {
   register : registerView,
   signedIn : signedInView,
   populateBookings : populateBookings,
+  populateAccount  : populateAccount,
   readMore : readMore,
   signOut : signedOutView
 }

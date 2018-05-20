@@ -80,7 +80,15 @@ function registerNewUser() {
             sendVerification(email);
             views.signin();
           } else {
-            message.show(request.response);
+            var err = JSON.parse(request.response);
+            switch(err.errno) {
+              case 19 :
+                message.show('An account with these details already exists');
+                break;
+              case 5 :
+                message.show(`Error code:  ${err.errno}`);
+                break;
+            }
           }
         }
       }
