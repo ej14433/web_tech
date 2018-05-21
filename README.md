@@ -6,3 +6,5 @@ It is possible to create an account, but to do this you'll need to wait for a ve
 
 username : e
 password : 12345678
+
+To allow certificate be trusted, one must need to configure their browser trust list before the server runs.
