@@ -517,13 +517,15 @@ footer p {
 
 /* Position the image container (needed to position the left and right arrows) */
 .container {
-  grid-column: 2/3;
   position: relative;
 }
 
 /* Hide the images by default */
 .mySlides {
   display: none;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
 }
 
 
@@ -535,7 +537,6 @@ footer p {
   top: 45%;
   width: auto;
   height: auto;
-  padding: 1vw;
   margin-top: -50px;
   color: white;
   font-weight: bold;
@@ -585,7 +586,6 @@ footer p {
 .column {
   float: left;
   width: 16.66%;
-  height: 100%;
 }
 
 /* Add a transparency effect for thumnbail images */
@@ -596,4 +596,10 @@ footer p {
 .active,
 .demo:hover {
   opacity: 1;
+}
+
+
+.vertical-center {
+  display: flex;
+  align-items: center;
 }
