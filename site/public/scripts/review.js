@@ -16,6 +16,7 @@ function submit() {
   request.onreadystatechange = function () {
     if(request.readyState == XMLHttpRequest.DONE) {
       console.log(request.response);
+      message.show(request.response);
     }
   }
 

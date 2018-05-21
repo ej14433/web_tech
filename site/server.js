@@ -354,8 +354,8 @@ app.post('/review', function(req,res) {
   var review = req.body.review;
 
   sqljs.addReview(db,email,name,review, function(err){
-    if(err) res.send(err);
-    if(!err) res.send('success');
+    if(err) res.send('This email has already submitted a review');
+    if(!err) res.send('Success');
   });
 });
 

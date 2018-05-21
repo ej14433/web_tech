@@ -194,7 +194,8 @@ function addReview(db, email, name, review, callback) {
   db.serialize(function() {
     var query = `insert into reviews (email, name, review) values ('${email}', '${name}', '${review}')`;
     db.run(query, function(err) {
-      if(err) throw err;
+      if(err) callback(err);
+      if(!err) callback();
     });
   });
 }
