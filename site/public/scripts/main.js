@@ -26,10 +26,12 @@ window.addEventListener('load', function (e) {
   var forms           = document.querySelectorAll('form'                );
   var reviewButton    = document.querySelector('#review-submit'         );
   var reviewsContainter = document.querySelector('.reviews-container'   );
+  var updateDetails   = document.querySelector('.update'         );
 
   if(bookings) {
     views.populateBookings();
     views.populateAccount();
+    updateDetails.addEventListener('click', user.update);
   }
 
   if(reviewButton) {

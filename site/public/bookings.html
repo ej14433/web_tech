@@ -28,18 +28,21 @@
         <section id="bookings">
         </section>
       </section>
-      <section class="main-box">
+      <section class="main-box" id="account-details-box">
         <h2>Account Details</h2>
         <section class="account-info">
           <p>Name:</p>
-          <input type="text" name="name" value="">
+          <input type="text"  class="update-name" name="name" value="">
           <p>Email:</p>
-          <input type="text" name="email" value="">
-          <input class="login-button" id="login-button" type="button" value="Update Details" />
+          <input type="text" class="update-email" name="email" value="">
         </section>
+        <input class="login-button update" type="button" value="Update Details" />
       </section>
 
-
+      <section class="error-overlay" id="error">
+        <section class="error-message" id="error-message">
+        </section>
+      </section>
 
       <footer>
         <p>by Elis Jones, and Sonny Peng. Copyright 2018</p>

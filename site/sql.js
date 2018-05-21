@@ -211,6 +211,17 @@ function getLatestReviews(db, callback) {
   });
 }
 
+function updateAccountDetails(db, username, email, user, callback) {
+  console.log(username);
+  db.serialize(function() {
+    var query = "update users set username = '"+username+"', email = '"+email+"' where userId = '"+user+"'";
+    db.run(query, function(err) {
+      if (err) throw err;
+      callback();
+    });
+  });
+}
+
 
 module.exports = {
   storeUserHash   : storeUserHash,
@@ -227,5 +238,6 @@ module.exports = {
   getBookingsByUserId : getBookingsByUserId,
   getAccountDetails : getAccountDetails,
   addReview : addReview,
-  getLatestReviews : getLatestReviews
+  getLatestReviews : getLatestReviews,
+  updateAccountDetails : updateAccountDetails
 }

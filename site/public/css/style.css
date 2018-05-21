@@ -150,6 +150,7 @@ body {
   grid-gap: 0.5rem;
   min-width: 20rem;
   overflow: hidden;
+  max-height: 15rem;
 }
 
 
@@ -368,6 +369,14 @@ body {
   font-weight: bold;
 }
 
+#account-details-box {
+  max-height: 20rem;
+}
+
+#account-details-box h2 {
+  grid-column: span 2;
+}
+
 
 .title-container {
   display: grid;
@@ -386,10 +395,15 @@ body {
 
 .account-info {
   display: grid;
+  grid-template-columns: 1fr 1fr;
   grid-gap: 0.5rem;
 }
 
 .account-info input{
+  max-height: 2.5rem;
+}
+
+.update {
   max-height: 2.5rem;
 }
 

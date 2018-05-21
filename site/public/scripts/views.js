@@ -102,10 +102,9 @@ function populateAccount() {
       accountElement.innerHTML =
       `
         <p>Name:</p>
-        <input type="text" name="name" value="${details.username}">
+        <input type="text" class="update-name" name="name" value="${details.username}">
         <p>Email:</p>
-        <input type="text" name="email" value="${details.email}">
-        <input class="login-button" id="login-button" type="button" value="Update Details" />
+        <input type="text" class="update-email" name="email" value="${details.email}">
       `;
       console.log(request.response);
     }

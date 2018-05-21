@@ -254,9 +254,7 @@ app.post('/updatedetails', function(req,res) {
         res.send('No changes to be made');
       } else {
         const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
-        sqljs.updateAccountDetails(db, req.body.username, req.body.email,  req.session.passport.user, function() {
-          res.send('Sweet')
-        });
+        sqljs.updateAccountDetails(db, req.body.username, req.body.email);
       }
     });
   }
@@ -289,6 +287,31 @@ app.get('/verify', function(req,res) {
     res.type('.html');
     res.send(html);
   });
+<<<<<<< Updated upstream
+  var html = `
+  <!DOCTYPE html>
+  <html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+      <meta name="author" content="Elis Jones and Sonny Peng "></meta>
+      <title> Form </title>
+      <script type="text/javascript" src="scripts/bundle.js"></script>
+      <link rel="stylesheet" href="./css/style.css" />
+      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+    </head>
+
+    <body>
+      <section class="main-box">
+        <h2>Success!</h2>
+      </section>
+    </body>
+  </html>
+  `;
+  res.status(200);
+  res.type('.html');
+  res.send(html);
+=======
+>>>>>>> Stashed changes
 });
 
 app.get('/newpassword', function(req, res) {
@@ -328,6 +351,7 @@ app.get('/newpassword', function(req, res) {
 });
 
 app.post('/newpassword', function(req,res) {
+  console.log('new ting');
   const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
   var token = req.body.token;
   var email = req.body.email;

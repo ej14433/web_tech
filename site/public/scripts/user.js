@@ -115,11 +115,26 @@ function logOut() {
   }
 }
 
+function update() {
+  var newusername = document.querySelector('.update-name').value;
+  var newemail    = document.querySelector('.update-email').value;
+  var url = '/updatedetails';
+  var params = `username=${newusername}&email=${newemail}`;
+  var request = req.post(url);
+  request.send(params);
+  request.onreadystatechange = function () {
+    if(request.readyState == XMLHttpRequest.DONE) {
+      message.show(request.response);
+    }
+  }
+}
+
 module.exports = {
   sendVerification : sendVerification,
   registerNewUser  : registerNewUser,
   loginUser        : loginUser,
   newPassword      : newPassword,
   resetPassword    : resetPassword,
-  logOut           : logOut
+  logOut           : logOut,
+  update           : update
 }
