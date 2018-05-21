@@ -4,9 +4,9 @@ function validLogin(username, password, callback) {
   if(!password || !username) {
     callback('All field must be filled');
   }
-  // if(password.length<8) {
-    // callback('All passwords are atleast 8 characters')
-  // }
+  if(password.length<8) {
+    callback('All passwords are atleast 8 characters')
+  }
   else {
     callback();
   }
@@ -17,9 +17,9 @@ function validRegister(username, password, password2, email, callback) {
   if(!password || !username || !password2 || !email) {
     callback('All fields must be filled');
   }
-  // else if (password.length < 8) {
-    // callback('Password must be atleast 8 characters');
-  // }
+  else if (password.length < 8) {
+    callback('Password must be atleast 8 characters');
+  }
   else if(!(password === password2)) {
     callback('Passwords do not match');
   }

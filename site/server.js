@@ -191,11 +191,17 @@ app.post('/reset', function (req, res) {
       crypto.randomBytes(48, function(err, buffer) {
         var token = buffer.toString('hex');
         var now = new Date();
-        var nextDay   = now.getDate() + 2;
-        var tomorrow = new Date('2018-04-' + nextDay );
+        now.setDate(now.getDate() + 1);
+        var year = now.getFullYear();
+        var month = (('0' + (now.getMonth()+1)).slice(-2));
+        console.log(month);
+        var day = now.getDate();
+        var date = `${year}-${month}-${day}`;
+
+        var tomorrow = new Date(date);
         var expiry   = tomorrow.toJSON();
         sqljs.setReset(db, req.body.email, token, "date('" + expiry + "')", function () {
-          var url = 'http://localhost:8080/newpassword?token=' + token + '&email=' + req.body.email;
+          var url = 'https://localhost:8080/newpassword?token=' + token + '&email=' + req.body.email;
           var mailOptions = {
             from: 'SeaMor <seamorwildlifetours@gmail.com>',
             to: req.body.email,
@@ -206,7 +212,7 @@ app.post('/reset', function (req, res) {
             if (err) res.send(err);
             if (!err) res.send('Email sent');
           });
-        });ts
+        });
       });
     }
   });
@@ -259,9 +265,9 @@ app.get('/verify', function(req,res) {
     </head>
 
     <body>
-      <form class="login-form" id="reset-form">
-        <a class="login-a wide" id="reset-to-signin" href="#">Success</a>
-      </form>
+      <section class="main-box">
+        <h2>Success!</h2>
+      </section>
     </body>
   </html>
   `;
@@ -285,14 +291,14 @@ app.get('/newpassword', function(req, res) {
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
     </head>
 
-    <body>
+    <body class="width-1">
       <form class="login-form" id="reset-form">
         <input class="login-input invisible" id="hidden-email" type="text" name="username" value="${email}">
         <input class="login-input invisible" id="hidden-token" type="text" name="token" value="${token}">
         <input class="login-input" id="new-password" type="password" name="new-password" placeholder="New Password" autocomplete="new-password" required=true />
         <input class="login-input" id="confirm-new-password" type="password" name="confirm-new-password" placeholder="Confirm Password" autocomplete="new-password" required=true />
         <input class="login-button" id="reset-account-password" type="button" value="Reset" />
-        <a class="login-a wide" id="reset-to-signin" href="#">Sign In</a>
+        <a class="login-a wide" id="reset-to-signin" href="/">Sign In</a>
       </form>
       <section class="error-overlay" id="error">
         <section class="error-message" id="error-message">
@@ -307,6 +313,7 @@ app.get('/newpassword', function(req, res) {
 });
 
 app.post('/newpassword', function(req,res) {
+  console.log('new ting');
   const db = new sql.Database('./data.db', function (err) { if(err) throw err; });
   var token = req.body.token;
   var email = req.body.email;

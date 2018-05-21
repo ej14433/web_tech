@@ -9,18 +9,6 @@ const review   = require('./review.js'    );
 
 window.addEventListener('load', function (e) {
 
-  var request = req.get('/issignedin');
-  request.onreadystatechange = function() {
-    if(request.readyState == XMLHttpRequest.DONE) {
-      if(request.response == 'yes') {
-        views.signedIn();
-      }
-      if(request.response == 'no') {
-        views.signOut();
-      }
-    }
-  }
-
   var bookings        = document.getElementById('bookings'              );
   var register        = document.getElementById('register'              );
   var search          = document.getElementById('search'                );
@@ -48,7 +36,20 @@ window.addEventListener('load', function (e) {
     reviewButton.addEventListener(  'click', review.submit       );
   }
 
-  logOut.addEventListener(          'click', user.logOut         );
+  if(logOut) {
+    logOut.addEventListener(          'click', user.logOut         );
+    var request = req.get('/issignedin');
+    request.onreadystatechange = function() {
+      if(request.readyState == XMLHttpRequest.DONE) {
+        if(request.response == 'yes') {
+          views.signedIn();
+        }
+        if(request.response == 'no') {
+          views.signOut();
+        }
+      }
+    }
+  }
 
   if(search) {
     register.addEventListener(      'click', views.register      );
@@ -61,7 +62,7 @@ window.addEventListener('load', function (e) {
     reset.addEventListener(         'click', user.resetPassword  );
     bookButton.addEventListener(    'click', searchjs.create     );
     readMores.forEach(readMore => readMore.addEventListener('click', views.readMore));
-    forms.forEach(        form => form.addEventListener(    'keyup', keyPress      ));
+    forms.forEach(form => form.addEventListener('keyup', keyPress));
     review.populate();
 
   }

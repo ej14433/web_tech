@@ -76,6 +76,7 @@ function checkToken(db, email, token, callback) {
         var date = new Date();
         var now = ((date.toJSON()).split("T"))[0];
         if(users[0].token = token && users[0].token !== null ) {
+          console.log(now, users[0].expiry);
           if(now <= users[0].expiry) {
             query = "update users set token = null, expiry = null where email = '"+email+"'";
             db.run(query, function(err) {

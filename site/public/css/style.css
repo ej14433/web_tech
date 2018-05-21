@@ -24,6 +24,10 @@ body {
   overflow-x: hidden;
 }
 
+.width-1 {
+  grid-template-columns: 1fr;
+}
+
 
 
 /*---------------------------------------------------------------*/
